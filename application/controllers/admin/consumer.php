@@ -22,6 +22,7 @@ class consumer extends CI_Controller {
 
 	public function index()
 	{
+		//sample commit
 		$data['consumer'] = $this->admin_model->get_consumer();
 		$data['consumerdis'] = $this->admin_model->get_consumerDis();
 		$data['zone'] = $this->admin_model->get_zone();
