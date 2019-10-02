@@ -63,6 +63,15 @@
             return $query->result();
         }
 
+        function count_admin()
+        {
+            $query = $this->db->query("SELECT COUNT(Acc_type) as type FROM `employee`
+                WHERE Acc_type = 'Admin'
+                AND Emp_status = 'Active'");
+
+            return $query->row_array();
+        }
+
         function cashier()
         {
             $this->db->select('*');
@@ -72,6 +81,15 @@
 
             $query = $this->db->get();
             return $query->result();
+        }
+
+        function count_cashier()
+        {
+            $query = $this->db->query("SELECT COUNT(Acc_type) as type FROM `employee`
+                WHERE Acc_type = 'Cashier'
+                AND Emp_status = 'Active'");
+
+            return $query->row_array();
         }
 
         function staff()
@@ -85,6 +103,15 @@
             return $query->result();
         }
 
+        function count_staff()
+        {
+            $query = $this->db->query("SELECT COUNT(Acc_type) as type FROM `employee`
+                WHERE Acc_type = 'Staff'
+                AND Emp_status = 'Active'");
+
+            return $query->row_array();
+        }
+
         function inactive()
         {
             $this->db->select('*');
@@ -93,6 +120,14 @@
 
             $query = $this->db->get();
             return $query->result();
+        }
+
+        function count_inactive()
+        {
+            $query = $this->db->query("SELECT COUNT(Emp_status) as type FROM `employee`
+                WHERE Emp_status = 'Inactive'");
+
+            return $query->row_array();
         }
 
         function cubic()

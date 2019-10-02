@@ -52,7 +52,26 @@
                                                                     <div class="tab-content">
                                                                         <div class="tab-pane fade" id="balance" role="tabpanel">
                                                                             <div class="pd-20">
-                                                                                <h1>Sample</h1>
+                                                                                
+                                                                                <table class="table table-bordered" style = "width: 84%; margin: auto">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th style = "width: 30%;" class = "text-center">Months Delinquent</th>
+                                                                                            <th style = "width: 20%;" class = "text-center">Water Bill</th>
+                                                                                            <th style = "width: 30%;" class = "text-center">Per Cubic Meter</th>
+                                                                                            <th style = "width: 20%;" class = "text-center">Amount</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="tab-pane fade" id="history" role="tabpanel">
@@ -78,7 +97,7 @@
                                                                                                     $i++
                                                                                                 ?></td>
                                                                                                 <td><?php echo date('F d Y',strtotime($h['Trans_date']))?></td>
-                                                                                                <td ><?php echo $h['Emp_fName'].' '.$h['Emp_mName'].' '.$h['Cons_faName']?></td>
+                                                                                                <td ><?php echo $h['Emp_fName'].' '.$h['Emp_mName'].' '.$h['Emp_faName']?></td>
                                                                                                 <td><?php echo $h['Trans_amount']/$h['Cubic_meter']?></td>
                                                                                                 <td class = "text-right">₱<?php echo $h['Trans_amount']?></td>
                                                                                             </tr>

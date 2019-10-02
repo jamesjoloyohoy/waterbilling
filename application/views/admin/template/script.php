@@ -138,3 +138,80 @@ Highcharts.chart('monthly', {
 		$("#update_consumer").modal('show');
 	}
 </script>
+
+<script>
+	$('#addconsumer').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('admin/consumer/add_new_consumer');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#addconsumer')[0].reset();
+				$('#consumer').modal('hide');
+				$('#alert').text("Succesfull add!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 1500);
+				window.location.href="consumer";
+			},
+			error: function()
+			{
+				alert('Consumer not add');
+			}
+		})
+	})
+</script>
+
+<script>
+	$('#updateconsumer').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('index.php/admin/consumer/update_consumer');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#updateconsumer')[0].reset();
+				$('#update_consumer').modal('hide');
+				$('#alert').text("Succesfull update!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 1500);
+				window.location.href="consumer";
+			},
+			error: function()
+			{
+				alert('Consumer not update');
+			}
+		})
+	})
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		$('#climit').keyup(function(){
+			$mtr_id = $(this).val();
+
+			<?php foreach ($meter as $met) { ?>
+				if ($mtr_id == <?php echo $met['Mtr_id']; ?>){
+					$('#alert').text("Meter no. is already excess!");
+					$('#message').modal('show');
+					setTimeout(function(){
+						$('#message').modal('hide');
+					}, 1500);
+					$('#climit').val("");
+				}
+			<?php } ?>
+		});
+	})
+</script>

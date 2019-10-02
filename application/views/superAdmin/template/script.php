@@ -31,6 +31,124 @@
 	</script>
 
 <script>
+	$('#addEmployee').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('superAdmin/dashboard/add_new_employee')?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#addEmployee')[0].reset();
+				$('#addEmp').modal('hide');
+				$('#alert').text("Succesfull Add!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 1500);
+				window.location.href="dashboard";
+			},
+			error: function()
+			{
+				alert('Employee not add');
+			}
+		})
+	})
+
+</script>
+
+<script>
+	$('#resetEmployee').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('superAdmin/dashboard/update_employee')?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#resetEmployee')[0].reset();
+				$('#resetEmp').modal('hide');
+				$('#alert').text("Succesfull reset!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 1500);
+				window.location.href="dashboard";
+			},
+			error: function()
+			{
+				alert('Employee not reset');
+			}
+		})
+	})
+
+</script>
+	
+<script>
+	$('#addcubic').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('superAdmin/dashboard/add_cubic');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#addcubic')[0].reset();
+				$('#cubic').modal('hide');
+				$('#alert').text("Succesfull update!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 1500);
+				window.location.href="dashboard";
+			},
+			error: function()
+			{
+				alert('Cubic meter not update');
+			}
+		})
+	})
+</script>
+
+<script>
+	$('#addfee').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('superAdmin/dashboard/add_fee');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#addfee')[0].reset();
+				$('#fee').modal('hide');
+				$('#alert').text("Succesfull update!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 1500);
+				window.location.href="dashboard";
+			},
+			error: function()
+			{
+				alert('Fees not update');
+			}
+		})
+	})
+</script>
+
+<script>
 	function view_employee(z, a, b, c, d, e, f, g, h, i)
 	{
 		$("#z").val(z);
@@ -46,12 +164,12 @@
 		$("#view").modal('show');
 	}
 
-	function update_employee(no, id, fName, mName, faName, username, address, contact, type, status, password)
+	function update_employee(no, id, fNames, mNames, faName, username, address, contact, type, status, password)
 	{
 		$("#no").val(no);
 		$("#id").val(id);
-		$("#fName").val(fName);
-		$("#mName").val(mName);
+		$("#fNames").val(fNames);
+		$("#mNames").val(mNames);
 		$("#faName").val(faName);
 		$("#username").val(username);
 		$("#address").val(address);
@@ -59,6 +177,72 @@
 		$("#type").val(type);
 		$("#status").val(status);
 		$("#password").val(password);
-		$("#Medium-modal").modal('show');
+		$("#resetEmp").modal('show');
 	}
+
+</script>
+
+<script>
+	var fName = document.getElementById('fName');
+		fName.onkeydown = function(e) 
+        {
+            if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105))
+            {
+                return false;
+            }
+        }
+
+	var mName = document.getElementById('mName');
+		mName.onkeydown = function(e) 
+        {
+            if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105))
+            {
+                return false;
+            }
+        }
+
+	var cno = document.getElementById('cno');
+		cno.onkeydown = function(e) 
+        {
+            if((e.keyCode == 69) || (e.keyCode == 189) || (e.keyCode == 109))
+            {
+                return false;
+            }
+        }
+
+	var cubic = document.getElementById('cubic');
+		cubic.onkeydown = function(e) 
+        {
+            if((e.keyCode == 69) || (e.keyCode == 189) || (e.keyCode == 109))
+            {
+                return false;
+            }
+        }
+
+	var cfee = document.getElementById('cfee');
+		cfee.onkeydown = function(e) 
+        {
+            if((e.keyCode == 69) || (e.keyCode == 189) || (e.keyCode == 109))
+            {
+                return false;
+            }
+        }
+
+	var rfee = document.getElementById('rfee');
+		rfee.onkeydown = function(e) 
+        {
+            if((e.keyCode == 69) || (e.keyCode == 189) || (e.keyCode == 109))
+            {
+                return false;
+            }
+        }
+
+	var mfee = document.getElementById('mfee');
+		mfee.onkeydown = function(e) 
+        {
+            if((e.keyCode == 69) || (e.keyCode == 189) || (e.keyCode == 109))
+            {
+                return false;
+            }
+        }
 </script>

@@ -22,11 +22,17 @@
 					</button>
 					<div class="tab">
 						<ul class="nav nav-tabs customtab" role="tablist">
-							<li class="nav-item">
+							<li class="d-flex align-items-center">
 								<a class="nav-link" data-toggle="tab" href="#connect" role="tab" aria-selected="true">Connected</a>
+								<div class="visit">
+									<span class="badge badge-pill badge-dark" style = "margin-bottom: 30%;"><?php echo $cconnect['Cons_no']?></span>
+								</div>
 							</li>
-							<li class="nav-item">
+							<li class="d-flex align-items-center" style = "margin-left: 5%;">
 								<a class="nav-link" data-toggle="tab" href="#disconnect" role="tab" aria-selected="false">Disconnected</a>
+								<div class="visit">
+									<span class="badge badge-pill badge-danger" style = "margin-bottom: 30%;"><?php echo $cconsumerdis['Cons_no']?></span>
+								</div>
 							</li>
 						</ul>
 						<div class="tab-content">
@@ -179,4 +185,5 @@
 			</div>
 <?php $this->load->view('modal/admin/update_consumer');?>	
 <?php $this->load->view('modal/admin/add_consumer');?>	
+<?php $this->load->view('modal/message');?>	
 

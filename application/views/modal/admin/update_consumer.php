@@ -5,7 +5,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel" style = " font-family: Times New Roman, Times, serif; margin-left: 30%">UPDATE CONSUMER</h4>
             </div>
             <div class="modal-body">
-                <form action = "<?php echo base_url('index.php/admin/consumer/update_consumer');?>" method = "POST">
+                <form id = "updateconsumer" method = "POST">
                 
                     <input class="form-control" type="text" required = "" name = "Cons_no" id = "no" autocomplete = "off" hidden>
             

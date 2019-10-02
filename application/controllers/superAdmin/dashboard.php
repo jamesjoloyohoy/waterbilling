@@ -39,9 +39,13 @@ class dashboard extends CI_Controller {
 		}
 
 		$data['admin'] = $this->superAdmin_model->admin();
+		$data['cadmin'] = $this->superAdmin_model->count_admin();
 		$data['cashier'] = $this->superAdmin_model->cashier();
+		$data['ccashier'] = $this->superAdmin_model->count_cashier();
 		$data['staff'] = $this->superAdmin_model->staff();
+		$data['cstaff'] = $this->superAdmin_model->count_staff();
 		$data['inactive'] = $this->superAdmin_model->inactive();
+		$data['cinactive'] = $this->superAdmin_model->count_inactive();
 		$data['cubic'] = $this->superAdmin_model->cubic();
 		$data['fee'] = $this->superAdmin_model->fee();
 
@@ -68,7 +72,7 @@ class dashboard extends CI_Controller {
 		$res = $this->superAdmin_model->add_employee($udata);
 		$data['employee'] = $this->superAdmin_model->get_employee();
 		
-		redirect('superAdmin/dashboard');
+		echo json_encode($data);
 	}
 
 	
@@ -83,7 +87,7 @@ class dashboard extends CI_Controller {
 		$res = $this->superAdmin_model->add_cubic($cdata);
 		$data['cubic'] = $this->superAdmin_model->get_cubic();
 
-		redirect('superAdmin/dashboard');
+		echo json_encode($data);
 	}
 
 	public function add_fee()
@@ -99,7 +103,7 @@ class dashboard extends CI_Controller {
 		$res = $this->superAdmin_model->add_fee($fdata);
 		$data['fee'] = $this->superAdmin_model->get_fee();
 
-		redirect('superAdmin/dashboard');
+		echo json_encode($data);
 	}
 
 	public function active($id)
@@ -131,6 +135,7 @@ class dashboard extends CI_Controller {
 		);
 
 		$this->superAdmin_model->update_employee($this->input->post('no'), $data) == true;
-		redirect('superAdmin/dashboard');
+
+		echo json_encode($data);
 	}
 }

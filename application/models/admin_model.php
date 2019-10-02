@@ -70,6 +70,16 @@
             return $query->result();
         }
 
+        function count_connected()
+        {
+            $query = $this->db->query("SELECT COUNT(Cons_no) as Cons_no 
+                FROM consumer,meter
+                WHERE meter.consumer_Cons_no = consumer.Cons_no
+                AND Mtr_status = 'Connect'");
+
+            return $query->row_array();
+        }
+
         public function get_consumerDis()
         {
             $this->db->select('*');
@@ -79,6 +89,16 @@
 
             $query = $this->db->get();
             return $query->result();
+        }
+
+        function count_disconnected()
+        {
+            $query = $this->db->query("SELECT COUNT(Cons_no) as Cons_no 
+                FROM consumer,meter
+                WHERE meter.consumer_Cons_no = consumer.Cons_no
+                AND Mtr_status = 'Disconnect'");
+
+            return $query->row_array();
         }
 
         public function noticeOfDisconnection()
@@ -140,6 +160,15 @@
 
             $query = $this->db->get();
             return $query->row_array();
+        }
+
+        public function getMet()
+        {
+            $this->db->select('*');
+            $this->db->from('meter');
+
+            $query = $this->db->get();
+            return $query->result_array();
         }
     }
 ?>

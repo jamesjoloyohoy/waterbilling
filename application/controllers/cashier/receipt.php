@@ -26,6 +26,7 @@ class receipt extends CI_Controller {
 		$Read_no = $this->cashier_model->get_latest_trans($this->input->post('Mtr_id'));
 		$data['reading'] = $this->cashier_model->get_meter($this->input->post('Mtr_id'), $Read_no);
 		$data['readings'] = $this->cashier_model->get_meters($this->input->post('Mtr_id'));
+		$data['max'] = $this->cashier_model->get_max($this->input->post('Mtr_id'));
 
 		$this->load_cashier_view('receipt', $data);
 	}
@@ -34,7 +35,6 @@ class receipt extends CI_Controller {
 	{
 		$trans_arr = array
 		(
-			// 'Trans_date'		=>	$this->input->post('date'),
 			'Trans_amount'		=>	$this->input->post('amount'),
 			'Employee_Emp_no'	=>	$this->input->post('emp_no'),
 			'meter_Mtr_no'		=>	$this->input->post('mtr_no')

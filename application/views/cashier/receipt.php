@@ -39,7 +39,7 @@
 																								<h6>Previous Bill: </h6>
 																							</div>
 																							<div class="invoice-subtotal">
-																								<h6>5000</h6>
+																								<h6><?php echo $max['total']?></h6>
 																								<?php foreach ($reading as $read) { 
 																									$cubic_meter = $read['Read_prevBill'] + $read['Read_currBill'];
 																									$amount += $read['Rate_totalUsage'];

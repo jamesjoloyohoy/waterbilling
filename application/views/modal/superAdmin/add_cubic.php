@@ -5,12 +5,12 @@
                 <h5 class="modal-title" id="myLargeModalLabel" style = " font-family: Times New Roman, Times, serif; margin-left: 20%">Update Per Cubic Meter</h5>
             </div>
             <div class="modal-body">
-                <form action = "<?php echo base_url('superAdmin/dashboard/add_cubic');?>" method = "POST">
+                <form id = "addcubic" method = "POST">
                   
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-6 col-form-label"> Per Cubic Meter</label>
                         <div class="col-sm-12 col-md-6">
-                            <input class="form-control" type="number" required = "" name = "cubic" autocomplete = "off">
+                            <input class="form-control" type="number" required = "" name = "cubic" id = "cubic" autocomplete = "off">
                             <input class="form-control" type="hidden" value = "<?php echo date('F d, Y')?>" name = "date" autocomplete = "off">
                         </div>
                     </div>

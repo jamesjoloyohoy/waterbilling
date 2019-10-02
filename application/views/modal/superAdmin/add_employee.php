@@ -1,24 +1,24 @@
-<div class="modal fade" id="Mymodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="addEmp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header"  style = "background-color: #4d94ff;">
                 <h4 class="modal-title" id="myLargeModalLabel" style = " font-family: Times New Roman, Times, serif; margin-left: 30%">ADD EMPLOYEE</h4>
             </div>
             <div class="modal-body">
-                <form action = "<?php echo base_url('superAdmin/dashboard/add_new_employee');?>" method = "POST">
+                <form id = "addEmployee" method = "POST">
                   
                     <input class="form-control" type="text" readonly = "" value = "<?php echo $Emp_id?>" name = "id" autocomplete = "off" hidden>
             
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-4 col-form-label"> First Name</label>
                         <div class="col-sm-12 col-md-8">
-                            <input class="form-control" type="text" required = "" name = "fName" autocomplete = "off">
+                            <input class="form-control" type="text" required = "" name = "fName" id = "fName" autocomplete = "off">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-4 col-form-label">M.I</label>
                         <div class="col-sm-12 col-md-8">
-                            <input class="form-control" type="text" required = "" onkeyup = "this.value = this.value.toUpperCase();" onKeyPress = "if(this.value.length == 2) return false;" name = "mName" autocomplete = "off">
+                            <input class="form-control" type="text" required = "" id = "mName" onkeyup = "this.value = this.value.toUpperCase();" onKeyPress = "if(this.value.length == 2) return false;" name = "mName" autocomplete = "off">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -42,7 +42,7 @@
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-4 col-form-label">Contact #.</label>
                         <div class="col-sm-12 col-md-8">
-                            <input class="form-control" type="number" required = "" min = "0" onKeyPress = "if(this.value.length == 11) return false;" name = "contact" autocomplete = "off">
+                            <input class="form-control" type="number" required = "" id = "cno" min = "0" onKeyPress = "if(this.value.length == 11) return false;" name = "contact" autocomplete = "off">
                         </div>
                     </div>
 

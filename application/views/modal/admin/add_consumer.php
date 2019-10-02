@@ -5,7 +5,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel" style = " font-family: Times New Roman, Times, serif; margin-left: 38%;">ADD CONSUMER</h4>
             </div>
             <div class="modal-body">
-                <form action = "<?php echo base_url('admin/consumer/add_new_consumer');?>" method = "POST">
+                <form id = "addconsumer" method = "POST">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
@@ -52,7 +52,7 @@
                                 
                             <div class="form-group">
                                 <label>Meter No.</label>
-                                <input class="form-control" type="number" required = "" min = "0" name = "id" autocomplete = "off" style = "background-color: white;">
+                                <input class="form-control" type="number" required = "" min = "0" name = "id" id = "climit" autocomplete = "off" style = "background-color: white;">
                             </div>
 
                             <div class="form-group">

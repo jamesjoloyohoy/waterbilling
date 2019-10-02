@@ -5,26 +5,26 @@
                 <h5 class="modal-title" id="myLargeModalLabel" style = " font-family: Times New Roman, Times, serif; margin-left: 33%">Update Fees</h5>
             </div>
             <div class="modal-body">
-                <form action = "<?php echo base_url('superAdmin/dashboard/add_fee');?>" method = "POST">
+                <form id = "addfee" method = "POST">
                   
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-6 col-form-label"> Connection Fee</label>
                         <div class="col-sm-12 col-md-6">
-                            <input class="form-control" type="number" required = "" name = "connection" autocomplete = "off">
+                            <input class="form-control" type="number" required = "" name = "connection" id = "cfee" autocomplete = "off">
                         </div>
                     </div>
                     
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-6 col-form-label"> Reconnection Fee</label>
                         <div class="col-sm-12 col-md-6">
-                            <input class="form-control" type="number" required = "" name = "reconnection" autocomplete = "off">
+                            <input class="form-control" type="number" required = "" name = "reconnection" id = "rfee" autocomplete = "off">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-6 col-form-label"> Membership Fee</label>
                         <div class="col-sm-12 col-md-6">
-                            <input class="form-control" type="number" required = "" name = "membership" autocomplete = "off">
+                            <input class="form-control" type="number" required = "" name = "membership" id = "mfee" autocomplete = "off">
                             <input class="form-control" type="hidden" value = "<?php echo date('F d, Y')?>" name = "date" autocomplete = "off">
                         </div>
                     </div>

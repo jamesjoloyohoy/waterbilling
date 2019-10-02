@@ -28,22 +28,34 @@
 													
 													<div class="col-lg-12 col-md-12 col-sm-12 mb-30" >
 														<div class="pd-20 bg-white border-radius-4 box-shadow">
-															<button class= "btn btn-primary btn-sm" data-toggle="modal" data-target="#Mymodal" style = "margin-left: 2%;">
+															<button class= "btn btn-primary btn-sm" data-toggle="modal" data-target="#addEmp" style = "margin-left: 2%;">
 																<i class = "fa fa-plus"> Add Employee</i>
 															</button>
 															<div class="tab">
 																<ul class="nav nav-tabs customtab" role="tablist">
-																	<li class="nav-item">
+																	<li class="d-flex align-items-center">
 																		<a class="nav-link" data-toggle="tab" href="#admin" role="tab" aria-selected="false">ADMIN</a>
+																		<div class="visit">
+																			<span class="badge badge-pill badge-dark" style = "margin-bottom: 30%;"><?php echo $cadmin['type']?></span>
+																		</div>
 																	</li>
-																	<li class="nav-item">
+																	<li class="d-flex align-items-center" style = "margin-left: 5%;">
 																		<a class="nav-link" data-toggle="tab" href="#cashier" role="tab" aria-selected="false">CASHIER</a>
+																		<div class="visit">
+																			<span class="badge badge-pill badge-dark" style = "margin-bottom: 30%;"><?php echo $ccashier['type']?></span>
+																		</div>
 																	</li>
-																	<li class="nav-item">
+																	<li class="d-flex align-items-center" style = "margin-left: 5%;">
 																		<a class="nav-link" data-toggle="tab" href="#staff" role="tab" aria-selected="true">STAFF</a>
+																		<div class="visit">
+																			<span class="badge badge-pill badge-dark" style = "margin-bottom: 30%;"><?php echo $cstaff['type']?></span>
+																		</div>
 																	</li>
-																	<li class="nav-item">
+																	<li class="d-flex align-items-center" style = "margin-left: 5%;">
 																		<a class="nav-link" data-toggle="tab" href="#inactive" role="tab" aria-selected="true">INACTIVE</a>
+																		<div class="visit">
+																			<span class="badge badge-pill badge-danger" style = "margin-bottom: 30%;"><?php echo $cinactive['type']?></span>
+																		</div>
 																	</li>
 																</ul>
 																<div class="tab-content">
@@ -216,19 +228,11 @@
 																								<td><?php echo $i->Emp_faName?>, <?php echo $i->Emp_fName?> <?php echo $i->Emp_mName?> </td>
 																								<td><?php echo $i->Emp_address?></td>
 																								<td class = "text-center">
-																									<div class="dropdown">
-																										<a class="btn btn-outline-primary dropdown-toggle btn-sm" href="#" role="button" data-toggle="dropdown">
-																											<i class="fa fa-ellipsis-h"></i>
-																										</a>
-																										<div class="dropdown-menu">
-																											<br />
-																											<a class = "btn btn-primary btn-sm"  style = "margin-left: 26%; margin-bottom: 3%;" type = "button" href="<?php echo base_url('superAdmin/dashboard/active/'.$i->Emp_no); ?>">
-																												<i class = "fa fa-pencil"> Active</i>
-																											</a>
-																											<br />
-																											<br />
-																										</div> 
-																									</div>
+
+																									<a class = "btn btn-primary btn-sm" type = "button" href="<?php echo base_url('superAdmin/dashboard/active/'.$i->Emp_no); ?>">
+																										<i class = "fa fa-pencil"> Active</i>
+																									</a>
+
 																								</td>
 																							</tr>
 																					<?php }?>
@@ -318,8 +322,9 @@
 	</div>
 </div>
 <?php $this->load->view('modal/superAdmin/add_employee');?>	
+<?php $this->load->view('modal/message');?>	
 <?php $this->load->view('modal/superAdmin/add_cubic');?>	
 <?php $this->load->view('modal/superAdmin/add_fee');?>	
 <?php $this->load->view('modal/superAdmin/view_employee');?>	
-<?php $this->load->view('modal/superAdmin/update_employee');?>	
+<?php $this->load->view('modal/superAdmin/update_employee');?>
 <?php $this->load->view('modal/logout');?>	

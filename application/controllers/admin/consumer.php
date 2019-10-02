@@ -22,11 +22,13 @@ class consumer extends CI_Controller {
 
 	public function index()
 	{
-		//sample commit
 		$data['consumer'] = $this->admin_model->get_consumer();
+		$data['cconnect'] = $this->admin_model->count_connected();
 		$data['consumerdis'] = $this->admin_model->get_consumerDis();
+		$data['cconsumerdis'] = $this->admin_model->count_disconnected();
 		$data['zone'] = $this->admin_model->get_zone();
 		$data['barangay'] = $this->admin_model->get_barangay();
+		$data['meter'] = $this->admin_model->getMet();
 		$this->load_admin_view('consumer' , $data);
 		
 	}
@@ -72,7 +74,7 @@ class consumer extends CI_Controller {
 		$res = $this->admin_model->add_meter($meter);
 		$data['consumer'] = $this->admin_model->get_meter();
 		
-		redirect('admin/consumer');
+		echo json_encode($data);
 	}
 
 	public function update_consumer()
@@ -93,7 +95,8 @@ class consumer extends CI_Controller {
 		);
 
 		$this->admin_model->update_consumerInfo($this->input->post('Cons_no'), $data) == true;
-		redirect('admin/consumer');
+		
+		echo json_encode($data);
 	}
 
 	public function get_consumerInfo($id)
