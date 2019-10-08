@@ -7,10 +7,24 @@
 						<div class="title">
 							<div class="form-group row">
 							<h4 class="user-name" style = "color: yellow;"><?php echo $this->session->userdata('Emp_fName');?> <?php echo $this->session->userdata('Emp_mName');?> <?php echo $this->session->userdata('Emp_faName');?></h4>
-								<div class="col-sm-12 col-md-6">
-									<button class= "btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmation-modal" style = "margin-left: 2%;">
-										<i class = "fa fa-sign-out"> Logout</i>
-									</button>
+								<div class="dropdown" style = "margin-left: 3%;">
+									<a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+										<i class="fa fa-ellipsis-h"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-left">
+										<br/>
+										<div class = "text-center">
+											<button class= "btn btn-primary btn-sm" type = "button" style = "margin-left: 2%; margin-bottom: 5%;">
+												<a href="<?php echo base_url('superAdmin/profile')?>">
+													<i class = "fa fa-user" style = "color: white"> Profile</i>
+												</a>
+											</button>
+
+											<button class= "btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmation-modal" style = "margin-left: 2%;">
+												<i class = "fa fa-sign-out"> Logout</i>
+											</button>
+										</div>
+										<br/>
 								</div>
 							</div>
 						</div>

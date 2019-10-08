@@ -7,19 +7,30 @@
 						<div class="title">
 							<div class="form-group row">
 							<h4 class="user-name text-blue"><?php echo $this->session->userdata('Emp_fName');?> <?php echo $this->session->userdata('Emp_mName');?> <?php echo $this->session->userdata('Emp_faName');?></h4>
-								<div class="col-sm-12 col-md-6">
-									<button class= "btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmation-modal" style = "margin-left: 2%;">
-										<i class = "fa fa-sign-out"> Logout</i>
-									</button>
-								</div>
-							</div>
-							<div class="dropdown">
-								<a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-									<i class="fa fa-ellipsis-h"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-left">
-									<a class="dropdown-item" href="<?php echo base_url('staff/dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard 1</a>
-									<a class="dropdown-item" href="<?php echo base_url('staff/dashboard1')?>"><i class="fa fa-dashboard"></i> Dashboard 2</a>
+								<div class="dropdown" style = "margin-left: 3%;">
+									<a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+										<i class="fa fa-ellipsis-h"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-left">
+										<br/>
+										<div class = "text-center">
+											<button class = "btn btn-primary btn-sm" type = "button" style = "margin-left: -9%; margin-bottom: 3%;">
+                                                <a href = "<?php echo base_url('staff/profile');?>">
+                                                    <i class = "fa fa-user" style = "color: white"> Profile</i>
+                                                </a>
+                                            </button>
+											
+											<button class = "btn btn-dark btn-sm" type = "button" style = "margin-left: 15%; margin-bottom: 3%;">
+												<a href="<?php echo base_url('staff/dashboard1')?>">
+													<i class = "fa fa-dashboard" style = "color: white"> Dashboard 2</i>
+												</a>
+											</button>
+											<button class= "btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmation-modal" style = "margin-left: -6%;">
+												<i class = "fa fa-sign-out"> Logout</i>
+											</button>
+										</div>
+										<br/>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -56,10 +67,11 @@
 																							<input class="form-control" type="number" name = "Mtr_id" min = "0" autocomplete = "off">
 																						</label>
 																						<div class="col-sm-12 col-md-2">
+																							<button type="submit" id="select" hidden></button>
 																							<button class = "btn btn-dark btn-sm" style = "margin-top: 70%;" type = "button" onclick="getMonth(<?php echo date('d'); ?>);">
 																								<i class="fa fa-check" style = "color: white"> Select </i>
 																							</button>
-																							<button type="submit" id="select" hidden></button>
+																							
 																						</div>
 																					</div>
 																				<?php echo form_close(); ?>
