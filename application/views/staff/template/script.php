@@ -74,6 +74,23 @@
 
 <!-- add_reading -->
 
+<script type="text/javascript">
+	$(function(){
+		$('#update_profile').click(function(){
+			$('#fname').removeAttr('readonly');
+			$('#mname').removeAttr('readonly');
+			$('#faname').removeAttr('readonly');
+			$('#username').removeAttr('readonly');
+			$('#address').removeAttr('readonly');
+			$('#contact').removeAttr('readonly');
+			$('#password').removeAttr('readonly');
+			
+			$('#update_profile').hide();
+			$('#submit_profile').show();
+		});
+	})
+</script>
+
 <!-- <dashboard> -->
 <script>
 	function getMonth(month) {

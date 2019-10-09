@@ -7,19 +7,25 @@
 						<div class="title">
 							<div class="form-group row">
 							<h4 class="user-name text-blue"><?php echo $this->session->userdata('Emp_fName');?> <?php echo $this->session->userdata('Emp_mName');?> <?php echo $this->session->userdata('Emp_faName');?></h4>
-								<div class="col-sm-12 col-md-6">
-									<button class= "btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmation-modal" style = "margin-left: 2%;">
-										<i class = "fa fa-sign-out"> Logout</i>
-									</button>
-								</div>
-                            </div>
-                            <div class="dropdown">
-								<a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-									<i class="fa fa-ellipsis-h"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-left">
-									<a class="dropdown-item" href="<?php echo base_url('cashier/dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a>
-									<a class="dropdown-item" href="<?php echo base_url('cashier/report')?>"><i class="fa fa-pencil"></i> Report</a>
+                                <div class="dropdown" style = "margin-left: 3%;">
+									<a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+										<i class="fa fa-ellipsis-h"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-left">
+										<br/>
+										<div class = "text-center">
+											<button class = "btn btn-dark btn-sm" type = "button" style = "margin-left: 8%; margin-bottom: 3%;">
+												<a href="<?php echo base_url('cashier/dashboard')?>">
+													<i class = "fa fa-dashboard" style = "color: white"> Dashboard</i>
+												</a>
+											</button>
+											<br />
+											<button class= "btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmation-modal" style = "margin-left: -6%;">
+												<i class = "fa fa-sign-out"> Logout</i>
+											</button>
+										</div>
+										<br/>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -25,6 +25,7 @@
 													<i class = "fa fa-dashboard" style = "color: white"> Dashboard 2</i>
 												</a>
 											</button>
+											
 											<button class= "btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmation-modal" style = "margin-left: -6%;">
 												<i class = "fa fa-sign-out"> Logout</i>
 											</button>
