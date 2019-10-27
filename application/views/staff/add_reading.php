@@ -1,8 +1,24 @@
+<style>
+    
+    @media print
+    {
+        input#btnprint
+        {
+            display: none;
+        }
+
+        input#cancel
+        {
+            display: none;
+        }
+    }
+
+</style>
 <div class="container" >
 	<div class="pd-ltr-20 height-100-p xs-pd-20-10">
 		<div class="min-height-200px">
         
-        <form class="form form-horizontal" action = "<?php echo base_url()?>staff/Add_reading/add_reading" method = "POST" style = "width: 50%; border: 2px solid grey; margin: auto; margin-top: 3%; margin-bottom: 3%; background-color: white">
+        <form class="form form-horizontal" id = "addReading" method = "POST" style = "width: 50%; border: 2px solid grey; margin: auto; margin-top: 1%; margin-bottom: 3%; background-color: white">
             
             <div class = "text-center" style = "margin-top: 3%;">
                 <h5 style = " font-family: Times New Roman, Times, serif; margin-top: 0; color: black;">Manticao Municipal WaterWorks</h5>
@@ -38,15 +54,15 @@
                         <tr>
                             <th colspan="2">
                                 <div class="form-group row">
-                                    <label class="col-sm-12 col-md-3 col-form-label">Consumer: </label>
-                                    <div class="col-sm-12 col-md-9">
+                                    <label class="col-sm-3 col-md-3 col-form-label">Consumer: </label>
+                                    <div class="col-sm-5 col-md-7">
                                         <input class="form-control" type="text" value = "<?php echo $consumer['Cons_fName'].' '.$consumer['Cons_mName'].' '.$consumer['Cons_faName']?>" style = "border: 1px solid white; background-color: white;" readonly = "">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-12 col-md-3 col-form-label" style = "margin-left: -.5%;">Meter no.: </label>
-                                    <div class="col-sm-12 col-md-9">
+                                    <label class="col-sm-3 col-md-3 col-form-label" style = "margin-left: -.5%;">Meter no.: </label>
+                                    <div class="col-sm-5 col-md-7">
                                         <input class="form-control" type="text" value = "<?php echo $consumer['Mtr_id']?>" style = "border: 1px solid white; background-color: white;" readonly = "">
                                         <input class="form-control" value = "<?php echo $consumer['Mtr_no']?>" name = "no" type = "text" hidden>
                                         <input class="form-control" value = "<?php echo $consumers['Read_numOfRead'] + 1?>" name = "numofread" type = "text" hidden>
@@ -54,8 +70,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                <label class="col-sm-12 col-md-3 col-form-label">Location: </label>
-                                <div class="col-sm-12 col-md-9">
+                                <label class="col-sm-3 col-md-3 col-form-label">Location: </label>
+                                <div class="col-sm-9 col-md-9">
                                     <input class="form-control" type="text" value = "<?php echo $consumer['Cons_zone'].' '.$consumer['Cons_barangay'].' '.$consumer['Cons_province']?>" style = "border: 1px solid white; background-color: white;" readonly = "">
                                 </div>
                             </div>
@@ -87,7 +103,7 @@
 
                         <tr>
                             <td style = "text-align: left">Previous Reading: 
-                                <input type="number" class="form-control" id = "prev" value = "<?php echo $consumers['Read_currBill']??0 ?>" readonly = "" name = "pbill" style = "background-color:white; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white; text-align: center">
+                                <input type="number" class="form-control" id = "prev" value = "<?php echo number_format($consumers['Read_currBill'], -2)??0 ?>" readonly = "" name = "pbill" style = "background-color:white; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white; text-align: center">
                                 <input class="form-control" id = "cubic" value = "<?php echo $cubic['Cubic_meter']?>" type = "hidden">
                                 <input class="form-control" value = "<?php echo $cubic['Cubic_no']?>" name = "cubic" type = "hidden">
                             </td>
@@ -150,7 +166,7 @@
                 <br />
             <div class="modal-footer">
 
-                <input type = "submit" id="btnprint" class = "btn btn-primary btn-sm" onclick="myprint()"  value="Add Reading"  style = "margin-right: 72%;">
+                <input type = "submit" id="btnprint" class = "btn btn-primary btn-sm" onclick="press()"  value="Add Reading"  style = "margin-right: 72%;">
 
                 <a href="<?php echo base_url('staff/dashboard');?>">	
                     <input  type = "button" id="cancel" class = "btn btn-danger btn-sm" value="back">
@@ -161,3 +177,4 @@
 		</div>
 	</div>
 </div>	
+<?php $this->load->view('modal/message');?>

@@ -63,7 +63,7 @@
 
 																					<div class="form-group row">
 																						<label class="col-sm-12 col-md-7 col-form-label">
-																							<input class="form-control" type="number" name = "Mtr_id" min = "0" autocomplete = "off">
+																							<input class="form-control" type="number" required = "" name = "Mtr_id" min = "0" autocomplete = "off">
 																						</label>
 																						<div class="col-sm-12 col-md-2">
 																							<button class = "btn btn-dark btn-sm" type = "submit" style = "margin-top: 70%;">

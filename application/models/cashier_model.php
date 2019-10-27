@@ -59,12 +59,10 @@
 
         public function get_max($Mtr_id)
         {
-            $query = $this->db->query("SELECT MAX(reading.Read_no) AS max_read, reading.Read_meterUsed*reading.Cubic_Cubic_no AS total FROM meter,consumer,reading,bill,rate 
-                WHERE meter.consumer_Cons_no = consumer.Cons_no
-                AND meter.Mtr_no = reading.Meter_Mtr_no
-                AND bill.Bill_no = reading.bill_Bill_no
-                AND rate.Rate_no = reading.rate_Rate_no
-                AND meter.Mtr_id = $Mtr_id
+            $query = $this->db->query("SELECT MAX(transaction.Trans_no) AS Trans_no, Trans_amount
+            FROM transaction, meter
+            WHERE transaction.meter_Mtr_no = meter.Mtr_no
+            AND meter.Mtr_id = $Mtr_id
            ");
 
             return $query->row_array();
@@ -108,9 +106,9 @@
         {
             $this->db->select("*, concat(Cons_zone,' ',Cons_barangay,' ',Cons_province) as Cons_address, MAX(reading.Read_no) as Read_no,MAX(Read_numOfRead) as Read_numOfRead, SUM(Read_currBill) as Read_prevBill");
             $this->db->from('meter');
-            $this->db->join('consumer','meter.consumer_Cons_no=consumer.Cons_no','left');
-            $this->db->join('reading','reading.Meter_Mtr_no=meter.Mtr_no','left');
-            $this->db->join('rate','reading.rate_Rate_no=rate.Rate_no', 'left');
+            $this->db->join('consumer','meter.consumer_Cons_no=consumer.Cons_no');
+            $this->db->join('reading','reading.Meter_Mtr_no=meter.Mtr_no');
+            $this->db->join('rate','reading.rate_Rate_no=rate.Rate_no');
             $this->db->join('transaction','transaction.meter_Mtr_no=meter.Mtr_no', 'left');
             $this->db->group_by('consumer.Cons_no');
             

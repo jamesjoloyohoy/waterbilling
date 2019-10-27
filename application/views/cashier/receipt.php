@@ -1,3 +1,19 @@
+<style>
+    
+    @media print
+    {
+        input#btnprint
+        {
+            display: none;
+        }
+
+        input#cancel
+        {
+            display: none;
+        }
+    }
+
+</style>
 <?php 
 	$cubic_meter=0;
 	$amount=0;
@@ -15,7 +31,7 @@
 											<div class="row no-gutters" >
 												<div class="col-lg-12 col-md-12 col-sm-12" >
 													<div class="blog-caption">
-													<form class="form form-horizontal" action = "<?php echo base_url()?>cashier/receipt/add_transaction" method = "POST">
+													<form class="form form-horizontal" id = "transaction" method = "POST">
 														<table style = "border: 1px solid black; width: 70%; margin-left: 15%; margin-top: 2%; margin-bottom: 2%;">
 															<thead >
 																<tr>
@@ -39,7 +55,7 @@
 																								<h6>Previous Bill: </h6>
 																							</div>
 																							<div class="invoice-subtotal">
-																								<h6><?php echo $max['total']?></h6>
+																								<h6><?php echo $max['Trans_amount']??0?></h6>
 																								<?php foreach ($reading as $read) { 
 																									$cubic_meter = $read['Read_prevBill'] + $read['Read_currBill'];
 																									$amount += $read['Rate_totalUsage'];
@@ -72,7 +88,7 @@
 																						<li class="clearfix" style = "border: 1px solid black">
 																							<div class="invoice-sub">
 																								<?php foreach ($reading as $read) { ?>
-																									<h6><?php echo $read['Bill_startDate'].' - '.$read['Bill_endDate']?></h6>
+																									<h6><?php echo date('M',strtotime($read['Bill_startDate'])).' - '.date('M',strtotime($read['Bill_endDate']))?></h6>
 																								<?php } ?>
 																							</div>
 																							<div class="invoice-rate">
@@ -126,7 +142,7 @@
 																								<h6><?php echo $cubic_meter; ?></h6>
 																							</div>
 																							<div class="invoice-subtotal">
-																								<input readonly = "" id = "total" value = "<?php echo $amount; ?>" style = "width: 150%; border: 1px solid white">
+																								<input readonly = "" id = "total" value = "<?php echo $amount?>" style = "width: 150%; border: 1px solid white">
 																							</div>
 																						</li>
 																					</ul>
@@ -136,7 +152,7 @@
 																	</td>
 																	<td class = "text-center">
 																		<h6><strong>Amount Due</strong></h6>
-																		<h5><strong><?php echo $amount?></strong></h5>
+																		<h5><strong><?php echo number_format($amount, 2)?></strong></h5>
 																	</td>
 																</tr>
 
@@ -154,7 +170,7 @@
 																								<h6></h6>
 																							</div>
 																							<div class="invoice-subtotal" style = "margin-right: 5.5%;">
-																								<input style = "width: 200%; text-align: center; border: 1px solid white" type = "number" min = "0" onchange = "press()" id = "cash">
+																								<input style = "width: 200%; text-align: center; border: 1px solid white; background-color: #f2f2f2;" onchange="press()" type = "number" min = "0" id = "cash" required = "">
 																								<input value = "<?php echo $amount?>" type = "hidden" name = "amount">
 																							</div>
 																						</li>
@@ -203,7 +219,20 @@
 																</tr>
 															</tbody>
 														</table>
-														<button class = "btn btn-primary btn-sm" type = "submit"> Pay </button>
+												
+														<a href="<?php echo base_url("cashier/dashboard");?>">	
+															<input  type = "button" id="cancel" class = "btn btn-dark btn-sm" value="Back" style = "margin-left: 15%;">
+														</a>
+														
+
+														<?php if($amount != 0)
+														{
+															
+															echo '	<input type = "submit" id="btnprint" class = "btn btn-primary btn-sm pull-right" onclick="press()"  value="Pay"  style = "margin-right: 15%;">';
+
+														} ?>
+														<br />
+														<br />
 
 														</form>
 													</div>
@@ -220,3 +249,4 @@
 		</div>
 	</div>
 </div>
+<?php $this->load->view('modal/message');?>

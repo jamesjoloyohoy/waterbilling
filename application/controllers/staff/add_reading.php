@@ -73,6 +73,6 @@ class add_reading extends CI_Controller {
 		$res = $this->staff_model->add_reading($read_arr);
 		$data['reading'] = $this->staff_model->get_reading();
 		
-		redirect('staff/dashboard');
+		echo json_encode($data);
 	}
 }

@@ -38,9 +38,22 @@
 		var total = document.getElementById('total');
 		var cash = document.getElementById('cash');
 
-		var change = cash.value - total.value;
+		if(parseFloat(cash.value) < parseFloat(total.value))
+		{
+			$('#alert').text("Insufficient Amount!");
+			$('#message').modal('show');
+			setTimeout(function(){
+				$('#message').modal('hide');
+			}, 1500);
+			$('#cash').val("");
+			$('#changes').val("");
+		}
+		else
+		{
+			var change = cash.value - total.value;
 
-		$('#changes').val(change.toFixed(2));
+			$('#changes').val(change.toFixed(2));
+		}		
 	}
 </script>
 
@@ -59,4 +72,57 @@
 			$('#submit_profile').show();
 		});
 	})
+</script>
+
+<script>
+	$('#updateprofile').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('cashier/profile/update');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#alert').text("Succesfull update!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 5000);
+				window.location.href="http://localhost/waterBilling/";
+			},
+			error: function()
+			{
+				alert('Profile not update');
+			}
+		})
+	})
+
+</script>
+
+<script>
+	$('#transaction').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('cashier/receipt/add_transaction');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				window.print();
+				alert("Success");
+				window.location.href="dashboard";
+			},
+			error: function()
+			{
+				alert('Error');
+			}
+		})
+	})
+
 </script>

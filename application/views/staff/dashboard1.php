@@ -85,7 +85,9 @@
                                                                                     <td><?php echo $nrc->Cons_address?></td>
                                                                                     <td class = "text-center">
                                                                                         <button class = "btn btn-sm btn-primary"> 
-                                                                                            <i class = "fa fa-check"> Select</i>
+                                                                                            <a href = "<?php echo base_url('staff/dashboard1/get_meter/'.$nrc->Mtr_no);?>">
+                                                                                                <i class = "fa fa-check" style = "color: white"> Select</i>
+                                                                                            </a>
                                                                                         </button>
                                                                                     </td>
                                                                                 </tr>

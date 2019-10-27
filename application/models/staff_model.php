@@ -88,6 +88,17 @@
             return $query->row_array();
         }
 
+        public function get_meterss($Mtr_id)
+        {
+            $query = $this->db->query("SELECT * FROM meter,consumer 
+                WHERE meter.consumer_Cons_no = consumer.Cons_no
+                AND meter.Mtr_no = $Mtr_id
+            ");
+
+            return $query->row_array();
+        }
+
+
         function get_maxCubic()
         {
             $query = $this->db->query("SELECT * FROM cubic
@@ -109,6 +120,7 @@
             $query = $this->db->query("SELECT *, concat(Cons_zone,' ',Cons_barangay,' ',Cons_province) as Cons_address
                 FROM consumer, meter
                 WHERE meter.consumer_Cons_no=consumer.Cons_no
+                AND Mtr_status = 'Connect'
                 AND meter.Mtr_no NOT IN ($Mtr_no)
                 ORDER BY Cons_address");
             return $query->result();

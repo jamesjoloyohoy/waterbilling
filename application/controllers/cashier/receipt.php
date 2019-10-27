@@ -56,6 +56,6 @@ class receipt extends CI_Controller {
 		$res = $this->cashier_model->add_trans_det($trans_det);
 		$data['trans_det'] = $this->cashier_model->get_trans_det();
 
-		redirect('cashier/dashboard');
+		echo json_encode($data);
 	}
 }

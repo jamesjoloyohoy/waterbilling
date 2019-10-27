@@ -79,4 +79,10 @@ class dashboard1 extends CI_Controller {
 
 		return $temp;
 	}
+
+	public function get_meter($Mtr_id)
+	{
+		$data['consumer'] = $this->staff_model->get_meterss($Mtr_id);
+		$this->load_staff_view('add_reading', $data);
+	}
 }

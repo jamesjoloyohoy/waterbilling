@@ -56,6 +56,14 @@
                                                                     <div class="tab-content">
                                                                         <div class="tab-pane fade" id="notpaid" role="tabpanel">
                                                                             <div class="pd-20">
+
+                                                                            <button class = "btn btn-dark btn-sm" type = "button">
+                                                                                <a href = "<?php echo base_url('cashier/notPaid');?>">
+                                                                                    <i class = "fa fa-print" style = "color: white"> Print</i>
+                                                                                </a>
+                                                                            </button>
+                                                                            <br />
+                                                                            <br />
                                                                                 
                                                                                 <table class="data-table table-bordered stripe hover nowrap">
                                                                                     <thead>
@@ -111,7 +119,51 @@
                                                                         </div>
                                                                         <div class="tab-pane fade" id="paid" role="tabpanel">
                                                                             <div class="pd-20">
+                                                                                
+                                                                                <form action="<?php echo base_url('cashier/paidByDate/');?>">
 
+                                                                                    <label class="col-sm-12 col-md-4 col-form-label">Month/Day/Year:</label>
+                                                                                    <div class="form-group row" >
+                                                                                        <div class="col-sm-7 col-md-7 col-form-label">
+                                                                                        <div class="input-daterange input-group">
+                                                                                        <span class="input-group-addon bg-dark text-white b-0" style = "width: 10%; text-align: center;  margin-top: 2%;">From</span>
+
+                                                                                            <input type="date" name="from_date" class="form-control" autocomplete = "off" style = "background-color:white; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white; text-align: center;" >
+
+                                                                                            <span class="input-group-addon bg-dark text-white b-0" style = "width: 5%; text-align: center; margin-top: 2%;">to</span>
+
+                                                                                            <input type="date" name="to_date" class="form-control" autocomplete = "off" style = "background-color:white; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white; text-align: center;" >
+
+                                                                                            <button type="submit" class = "btn btn-primary btn-sm" style = "margin-left: 3%;">
+                                                                                                <i class = "fa fa-print"> Print</i>
+                                                                                            </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+
+                                                                                <form action="<?php echo base_url('cashier/paid/getConsumerRecord');?>" method = "POST">
+                                                                                    <label class="col-sm-12 col-md-4 col-form-label">Consumer Name:</label>
+                                                                                    
+                                                                                    <div class="form-group row">
+                                                                                        
+                                                                                        <input type = "search" list = "consumer" name = "Search" placeholder = "Search..." class = "form-control-sm" autocomplete = "off" style = "width: 25%; margin-left: 3%;">
+                                                                                            <datalist id = "consumer">
+                                                                                                <option></option>
+                                                                                                <?php  foreach($name as $n){?>
+                                                                                                    <option value = "<?php echo $n->Cons_name?>"></option>
+                                                                                                <?php }?>
+                                                                                            </datalist>
+
+                                                                                        <div class="col-sm-12 col-md-8">
+                                                                                            <button type="submit" class = "btn btn-secondary btn-sm" style = "margin-left: 3%;">
+                                                                                                <i class = "fa fa-print"> Print</i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                                <br />
+                                                                                
                                                                                 <table class="data-table table-bordered stripe hover nowrap">
                                                                                     <thead>
                                                                                         <tr>

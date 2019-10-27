@@ -8,6 +8,7 @@ class report extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->model('admin_model');
 		$this->load->model('cashier_model');
 		if($this->session->userdata('Emp_username')=="")
 		{
@@ -27,6 +28,7 @@ class report extends CI_Controller {
 		$data['toCompare'] = $this->cashier_model->get_latest_transactions();
 		$data['Paid'] = $this->cashier_model->get_Paid();
 		$data['notPaid'] = $this->cashier_model->get_notPaid();
+		$data['name'] = $this->admin_model->getName();
 
 		$this->load_admin_view('report' , $data);
 	}

@@ -170,5 +170,53 @@
             $query = $this->db->get();
             return $query->result_array();
         }
+
+        public function getName()
+        {
+            $this->db->select("concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) as Cons_name");
+            $this->db->from('consumer,meter,transaction');
+            $this->db->where('meter.consumer_Cons_no = consumer.Cons_no');
+            $this->db->where('transaction.meter_Mtr_no = meter.Mtr_no');
+            $this->db->where("Mtr_status != 'Disconnect'");
+            $this->db->group_by('Cons_no');
+
+            $query = $this->db->get();
+            return $query->result();
+        }
+
+        public function getPaid($Cons_name)
+        {
+            $this->db->select("trans_date, concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) as Cons_name, concat(Emp_fName,' ',Emp_mName,' ',Emp_faName) as Emp_name, Trans_amount,Cubic_meter");
+            $this->db->from('transaction, consumer, meter, employee, reading, transaction_details,cubic');
+            $this->db->where('transaction.meter_Mtr_no = meter.Mtr_no');
+            $this->db->where('meter.consumer_Cons_no = consumer.Cons_no');
+            $this->db->where('transaction.Employee_Emp_no = employee.Emp_no');
+            $this->db->where('transaction_details.transaction_Trans_no = transaction.Trans_no');
+            $this->db->where('transaction_details.reading_Read_no = reading.Read_no');
+            $this->db->where('cubic.Cubic_no=reading.Cubic_Cubic_no');
+            $this->db->group_by('transaction.trans_no');
+            $this->db->where("concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) = '{$Cons_name}'");
+         
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        public function getPaidByDate($from, $to)
+        {
+            $this->db->select("trans_date, concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) as Cons_name, concat(Cons_zone,' ',Cons_barangay,' ',Cons_province) as Address, Trans_amount, Mtr_id,Cubic_meter");
+            $this->db->from('transaction, consumer, meter, employee, reading, transaction_details,cubic');
+            $this->db->where('transaction.meter_Mtr_no = meter.Mtr_no');
+            $this->db->where('meter.consumer_Cons_no = consumer.Cons_no');
+            $this->db->where('transaction.Employee_Emp_no = employee.Emp_no');
+            $this->db->where('transaction_details.transaction_Trans_no = transaction.Trans_no');
+            $this->db->where('transaction_details.reading_Read_no = reading.Read_no');
+            $this->db->where('cubic.Cubic_no=reading.Cubic_Cubic_no');
+            $this->db->group_by('transaction.trans_no');
+            $this->db->where("date(trans_date) >= '{$from}'");
+            $this->db->where("date(trans_date) <= '{$to}'");
+
+            $query = $this->db->get();
+            return $query->result_array();
+        }
     }
 ?>

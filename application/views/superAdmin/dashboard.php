@@ -25,6 +25,7 @@
 											</button>
 										</div>
 										<br/>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -108,7 +109,7 @@
 																											</button>
 																											<br />
 																											<a class = "btn btn-danger btn-sm"  style = "margin-left: 15%; margin-top: 3%;" type = "button" href="<?php echo base_url('superAdmin/dashboard/inactive/'.$emp->Emp_no); ?>">
-																												<i class = "fa fa-pencil"> Inactive</i>
+																												<i class = "fa fa-pencil"> Inactivate</i>
 																											</a>
 																											<br />
 																											<br />
@@ -158,7 +159,7 @@
 																											</button>
 																											<br />
 																											<a class = "btn btn-danger btn-sm"  style = "margin-left: 15%; margin-top: 3%;" type = "button" href="<?php echo base_url('superAdmin/dashboard/inactive/'.$emp->Emp_no); ?>">
-																												<i class = "fa fa-pencil"> Inactive</i>
+																												<i class = "fa fa-pencil"> Inactivate</i>
 																											</a>
 																											<br />
 																											<br />
@@ -208,7 +209,7 @@
 																											</button>
 																											<br />
 																											<a class = "btn btn-danger btn-sm"  style = "margin-left: 15%; margin-top: 3%;" type = "button" href="<?php echo base_url('superAdmin/dashboard/inactive/'.$emp->Emp_no); ?>">
-																												<i class = "fa fa-pencil"> Inactive</i>
+																												<i class = "fa fa-pencil"> Inactivate</i>
 																											</a>
 																											<br />
 																											<br />
@@ -244,7 +245,7 @@
 																								<td class = "text-center">
 
 																									<a class = "btn btn-primary btn-sm" type = "button" href="<?php echo base_url('superAdmin/dashboard/active/'.$i->Emp_no); ?>">
-																										<i class = "fa fa-pencil"> Active</i>
+																										<i class = "fa fa-pencil"> Activate</i>
 																									</a>
 
 																								</td>

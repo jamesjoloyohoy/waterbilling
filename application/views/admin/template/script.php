@@ -140,6 +140,34 @@ Highcharts.chart('monthly', {
 </script>
 
 <script>
+	$('#updateprofile').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('admin/profile/update');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#alert').text("Succesfull update!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 5000);
+				window.location.href="http://localhost/waterBilling/";
+			},
+			error: function()
+			{
+				alert('Profile not update');
+			}
+		})
+	})
+
+</script>
+
+<script>
 	$('#addconsumer').on('submit', function(e)
 	{
 		e.preventDefault();

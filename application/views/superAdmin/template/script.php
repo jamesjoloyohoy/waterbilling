@@ -48,12 +48,40 @@
 				$('#message').modal('show');
 				setTimeout(function(){
 					$('#message').modal('hide');
-				}, 1500);
+				}, 5000);
 				window.location.href="dashboard";
 			},
 			error: function()
 			{
 				alert('Employee not add');
+			}
+		})
+	})
+
+</script>
+
+<script>
+	$('#updateprofile').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('superAdmin/profile/update');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#alert').text("Succesfull update!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 5000);
+				window.location.href="http://localhost/waterBilling/";
+			},
+			error: function()
+			{
+				alert('Profile not update');
 			}
 		})
 	})
@@ -78,7 +106,7 @@
 				$('#message').modal('show');
 				setTimeout(function(){
 					$('#message').modal('hide');
-				}, 1500);
+				}, 5000);
 				window.location.href="dashboard";
 			},
 			error: function()
@@ -108,7 +136,7 @@
 				$('#message').modal('show');
 				setTimeout(function(){
 					$('#message').modal('hide');
-				}, 1500);
+				}, 5000);
 				window.location.href="dashboard";
 			},
 			error: function()
@@ -137,7 +165,7 @@
 				$('#message').modal('show');
 				setTimeout(function(){
 					$('#message').modal('hide');
-				}, 1500);
+				}, 5000);
 				window.location.href="dashboard";
 			},
 			error: function()

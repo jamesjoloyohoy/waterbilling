@@ -55,20 +55,39 @@
 		var cubic = document.getElementById('cubic');
 		var prbil = document.getElementById('prbil').value;
 		var pbil = document.getElementById('pbil');
-		
-		var dif = pres.value-prev.value;
 
+		var dif = pres.value-prev.value;
 		var mul = dif * cubic.value;
 
-		$('#sub').val(dif);
 
-		$('#prbil').val(mul);
+		if(parseFloat(pres.value) <= parseFloat(prev.value))
+		{
+			$('#alert').text("Present reading cannot less than or equal to Previous reading!");
+			$('#message').modal('show');
+			setTimeout(function(){
+				$('#message').modal('hide');
+			}, 1500);
+			$('#pres').val("");
+			$('#sub').val("");
+			$('#prbil').val("");
 
-		var totals = parseInt(mul) + parseInt(pbil.value);
+			var totals = parseInt(mul) + parseInt(pbil.value);
 
-		$('#final').val(totals);
+			$('#final').val("");
 
-		// console.log(pres.value);
+		}
+
+		else
+		{
+			$('#sub').val(dif);
+
+			$('#prbil').val(mul);
+
+			var totals = parseInt(mul) + parseInt(pbil.value);
+
+			$('#final').val(totals);
+		}
+
 	}
 </script>
 
@@ -117,3 +136,56 @@
 	});
 </script>
 <!-- <dashboard> -->
+
+<script>
+	$('#updateprofile').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('staff/profile/update');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				$('#alert').text("Succesfull update!");
+				$('#message').modal('show');
+				setTimeout(function(){
+					$('#message').modal('hide');
+				}, 5000);
+				window.location.href="http://localhost/waterBilling/";
+			},
+			error: function()
+			{
+				alert('Profile not update');
+			}
+		})
+	})
+
+</script>
+
+<script>
+	$('#addReading').on('submit', function(e)
+	{
+		e.preventDefault();
+		$.ajax(
+		{
+			url: '<?php echo base_url('staff/Add_reading/add_reading');?>',
+			data: $(this).serialize(),
+			method: 'post',
+			dataType: 'json',
+			success: function(data)
+			{
+				window.print();
+				alert("Success");
+				window.location.href="dashboard";
+			},
+			error: function()
+			{
+				alert('Error');
+			}
+		})
+	})
+
+</script>
