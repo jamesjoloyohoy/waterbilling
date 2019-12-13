@@ -55,7 +55,7 @@
                                 $i++
                             ?></td>
                         <td><?php echo $z->Mtr_id?></td>
-                        <td><?php echo $z->Cons_faName .', '.$z->Cons_fName .' '.$z->Cons_mName ?>.</td>
+                        <td><?php echo $z->Cons_faName .', '.$z->Cons_fName .' '.$z->Cons_mName ?></td>
                         <td><?php echo $z->Cons_zone?> <?php echo $z->Cons_barangay?> <?php echo $z->Cons_province?> </td>
                     </tr>
                 <?php }?>

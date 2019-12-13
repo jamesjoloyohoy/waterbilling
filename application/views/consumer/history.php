@@ -24,13 +24,13 @@
                                                                     <div class="col-md-6 col-sm-12">
                                                                         <div class="form-group">
                                                                             <h6 class="weight-500">Consumer name</h6>
-                                                                            <h5 class="weight-550 mb-25"><?php echo $name['Cons_fName'].' '.$name['Cons_mName'].' '.$name['Cons_faName']?></h5>
+                                                                            <h5 class="weight-550 mb-25"><?php echo $name['Cons_name'];?></h5>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6 col-sm-12">
                                                                         <div class="form-group">
                                                                             <h6 class="weight-500">Address</h6>
-                                                                            <h5 class="weight-550 mb-25"><?php echo $name['Cons_zone'].' '.$name['Cons_barangay'].' '.$name['Cons_province']?></h5>
+                                                                            <h5 class="weight-550 mb-25"><?php echo $name['Cons_address']; ?></h5>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -57,19 +57,42 @@
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th style = "width: 30%;" class = "text-center">Months Delinquent</th>
-                                                                                            <th style = "width: 20%;" class = "text-center">Water Bill</th>
                                                                                             <th style = "width: 30%;" class = "text-center">Per Cubic Meter</th>
+                                                                                            <th style = "width: 20%;" class = "text-center">Water Bill</th>
                                                                                             <th style = "width: 20%;" class = "text-center">Amount</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <tr>
-                                                                                            <td></td>
-                                                                                            <td></td>
-                                                                                            <td></td>
-                                                                                            <td></td>
+                                                                                            <?php 
+                                                                                                $Rate_totalUsage = 0;
+                                                                                                $Read_totalBill = 0;
+                                                                                                foreach($balance as $h) {
+                                                                                                $perCubicMtr = $h['bill_currUsage']/$h['bill_meterUsed'];
+                                                                                                $Rate_totalUsage += $h['bill_meterUsed'];
+                                                                                                $Read_totalBill += $h['bill_currUsage'];
+                                                                                            ?>
+                                                                                                    <tr>
+                                                                                                        <td class = "text-center"><?php echo $h['read_startDate'].' - '.$h['read_endDate']?></td>
+                                                                                                        <td class = "text-center"><?=$perCubicMtr; ?></td>                                                                                       
+                                                                                                        <td class = "text-center"><?php echo $h['bill_meterUsed']?></td>
+                                                                                                        <td class = "text-right">₱<?php echo number_format($h['bill_currUsage'],2)?></td>
+                                                                                                    </tr>
+                                                                                                <?php }
+                                                                                            ?>
+                                                                                          
                                                                                         </tr>
                                                                                     </tbody>
+                                                                                    <tfoot>
+                                                                                        <?php if($Rate_totalUsage != 0) {?>
+                                                                                                <td colspan = "2" style = "text-align: right">Total</td>
+                                                                                                <td style = "text-align: center"><?= number_format($Rate_totalUsage, -2); ?></td>
+                                                                                                <td style = "text-align: right">₱<?= number_format($Read_totalBill, 2); ?></td>
+                                                                                            <?php }
+                                                                                                else { ?>
+                                                                                                    <td colspan = "4" style = "text-align: center; background-color: #cce6ff">"You have no balance"</td>
+                                                                                            <?php } ?>
+                                                                                    </tfoot>
                                                                                 </table>
 
                                                                             </div>
@@ -90,16 +113,16 @@
                                                                                     <tbody>
                                                                                         <?php
                                                                                             $i = 1;
-                                                                                            foreach($history as $h){?>
-                                                                                           <tr>
+                                                                                            foreach($Paid as $p){?>
+                                                                                            <tr>
                                                                                                 <td><?php echo 
                                                                                                     $i;
                                                                                                     $i++
                                                                                                 ?></td>
-                                                                                                <td><?php echo date('F d Y',strtotime($h['Trans_date']))?></td>
-                                                                                                <td ><?php echo $h['Emp_fName'].' '.$h['Emp_mName'].' '.$h['Emp_faName']?></td>
-                                                                                                <td><?php echo $h['Trans_amount']/$h['Cubic_meter']?></td>
-                                                                                                <td class = "text-right">₱<?php echo $h['Trans_amount']?></td>
+                                                                                                <td><?php echo date('F d Y',strtotime($p['Trans_date']))?></td>
+                                                                                                <td><?php echo $p['Emp_name']?></td>                                                                                               
+                                                                                                <td class = "text-center"><?php echo $p['bill_meterUsed']?></td>
+                                                                                                <td class = "text-right">₱<?php echo number_format($p['bill_currUsage'], 2)?></td>
                                                                                             </tr>
                                                                                         <?php }?>
                                                                                     </tbody>

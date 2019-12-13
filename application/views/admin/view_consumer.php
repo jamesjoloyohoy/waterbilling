@@ -141,11 +141,6 @@
                 </tr>
 
                 <tr>
-                    <td style = "text-align: left">Others</td>
-                    <td style = "text-align: left"><input readonly = "" value = "<?php echo $info['Cons_otherFee']?>" class="form-control" style = "background-color:white; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white; text-align: right;"></td>
-                </tr>
-
-                <tr>
                     <td style = "text-align: left">Total</td>
                     <td style = "text-align: left"><input readonly = "" value = "<?php echo $info['fee']?>" class="form-control" style = "background-color:white; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white; text-align: right;">
                     </td>

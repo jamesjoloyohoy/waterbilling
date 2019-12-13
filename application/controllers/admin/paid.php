@@ -9,7 +9,6 @@ class paid extends CI_Controller {
 		$this->load->helper('url');
         $this->load->helper('form');
         $this->load->model('admin_model');
-        $this->load->model('consumer_model');
 		if($this->session->userdata('Emp_username')=="")
 		{
 			redirect('login');
@@ -24,8 +23,8 @@ class paid extends CI_Controller {
 	public function getConsumerRecord()
 	{
 		$Cons_name = $this->input->post('Search');
-		$data['record'] = $this->admin_model->getPaid($Cons_name);
-		$data['name'] = $this->consumer_model->get_consumerName($Cons_name);
+		$data['record'] = $this->admin_model->get_Paids($Cons_name);
+		$data['name'] = $this->admin_model->get_consumerName($Cons_name);
 
 		$this->load->view('admin/paid', $data);
 	}

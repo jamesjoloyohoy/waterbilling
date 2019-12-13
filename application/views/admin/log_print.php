@@ -20,10 +20,10 @@
     }
 
 </style>
-<body> 
+<body style = "background-color: white"> 
 
     <div class="bg-white pd-30 box-shadow border-radius-5 xs-pd-20-10 height-100-p" style = "width: 100%; margin: auto">   
-    <a href="<?php echo base_url('cashier/report');?>">	
+    <a href="<?php echo base_url('admin/log');?>">	
         <input  type = "button" id="cancel" class = "btn btn-danger btn-sm" value="back">
     </a>
     <input  type = "button" id="btnprint" class = "btn btn-primary btn-sm" onclick="myprint()"  value="Print">
@@ -37,18 +37,26 @@
                     <h5 style = "margin-top: 5%;">Manticao Municipal Waterworks</h5>
                         <h6>Manticao Misamis Oriental</h6>
                         <br />
-                        <h4>Consumer Record Of Payment</h4>
+                        <h4>Consumer Record Of Reading</h4>
+                        <div class = "form-group" style = "margin-top: 3%;">
+                            <strong>From: <input value = "" style = "text-align: center; border: 1px solid white; border-bottom: 1px solid black" readonly = ""> to: <input value = "" style = "text-align: center; border: 1px solid white; border-bottom: 1px solid black" readonly = ""></strong>
+                        </div>
                 </div>
             </li>
+            <!-- <div class="form-group row">
+                <label class="col-sm-2 col-md-2 col-form-label" style = "margin-left: 6%;">Meter Reader:</label>
+                <div class="col-sm-9 col-md-9 text-left">
+                    <h5 style = "margin-top: 1%;"><?php echo $log_print['bill_meterReader']?></h5>
+                </div>
+            </div> -->
 
-            <table class=" table table-bordered" style = "width: 98%; margin: auto; background-color: white; margin-top: 2%;">
+            <table class="table table-bordered" style = "width: 80%; margin: auto; background-color: white; margin-top: 2%;">
                 <thead>
                     <tr>
-                        <th style = "width: 5%;">No.</th>
-                        <th>Date</th>
-                        <th>Meter No.</th>
+                        <th class="table-plus datatable-nosort">No.</th>
+                        <th>Bill Date</th>
+                        <th>Meter no.</th>
                         <th>Consumer Name</th>
-                        <th>Address</th>
                         <th>Meter Used</th>
                         <th>Amount</th>
                     </tr>
@@ -57,26 +65,25 @@
                     <?php
                         $i = 1;
                         $bill_currUsage = 0;
-                        foreach($reading_paid as $r){?>
+                        foreach($log as $l){?>
                         <tr>
                             <td><?php echo 
                                 $i;
                                 $i++
                             ?></td>
-                            <td><?php echo date('F d Y',strtotime($r['Trans_date']))?></td>
-                            <td><?php echo $r['Mtr_id']?></td>                            
-                            <td class = "text-left"><?php echo $r['Cons_name']?></td>                            
-                            <td class = "text-left"><?php echo $r['address']?></td>                                                                                                                                                                                                             
-                            <td class = "text-center"><?php echo $r['bill_meterUsed']?></td>
-                            <td class = "text-right">₱<?php echo $r['bill_currUsage']?></td>
+                            <td><?php echo date('F d Y',strtotime($l['bill_date']))?></td>
+                            <td class = "text-center"><?php echo $l['Mtr_id']?></td>
+                            <td class = "text-left"><?php echo $l['Cons_name']?></td>                                                                                               
+                            <td class = "text-center"><?php echo $l['bill_meterUsed']?> * <?php echo number_format($l['cubic_meter'], -2)?></td>
+                            <td class = "text-right">₱<?php echo number_format($l['bill_currUsage'], 2)?></td>
                         </tr>
-                    <?php $bill_currUsage += $r['bill_currUsage']; }?>
+                    <?php $bill_currUsage += $l['bill_currUsage']; }?>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan = "5" style = "text-align: right">Total</td>
+                        <td colspan = "4" class = "text-right">Total:</td>
                         <td></td>
-                        <td style = "text-align: right;"> ₱<?= number_format($bill_currUsage, 2); ?></td>   
+                        <td class = "text-right">₱<?php echo number_format($bill_currUsage,2); ?></td>
                     </tr>
                 </tfoot>
             </table>

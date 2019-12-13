@@ -7,19 +7,9 @@
 	<div class="pd-ltr-20 height-100-p xs-pd-20-10">
 		<div class="min-height-200px">
 			<div class="page-header">
-				<div class="row">
-					<div class="col-md-12 col-sm-6">
-						<div class="title">
-							<div class="form-group row">
-							   <button class = "btn btn-dark btn-sm">
-                                    <a href="<?php echo base_url('superAdmin/dashboard')?>">
-                                        <i class = "fa fa-sign-out" style = "color: white"> Back</i>
-                                    </a>
-                               </button>
-							</div>
-						</div>
-					</div>
-				</div>
+				<br />
+				<br />
+				<br />
 				<div class="blog-wrap">
 					<div class="container pd-0">
 						<div class="row">

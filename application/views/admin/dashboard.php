@@ -25,6 +25,9 @@
 								<li class="nav-item">
 									<a class="nav-link" data-toggle="tab" href="#disconnect" role="tab" aria-selected="false">Notice of Disconnection</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link" data-toggle="tab" href="#connectdis" role="tab" aria-selected="false">Disconnected</a>
+								</li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane fade" id="read" role="tabpanel">
@@ -40,30 +43,19 @@
 											</tr>
 										</thead>
 										<tbody>
-											<?php
-												$i = 1;
-												foreach($consumer as $c){?>
-												<tr>
-													<td><?php echo 
-														$i;
-														$i++
-													?></td>
-													<td><?php echo $c->Mtr_id?></td>
-													<td><?php echo $c->Cons_fName?> <?php echo $c->Cons_mName?> <?php echo $c->Cons_faName?></td>
-													<td><?php echo $c->Cons_address?></td>
-												</tr>
-											<?php } 
-													foreach($noRead_consumer as $nrc){?>
-												<tr>
-													<td><?php echo 
-														$i;
-														$i++
-													?></td>
-													<td><?php echo $nrc->Mtr_id?></td>
-													<td><?php echo $nrc->Cons_fName?> <?php echo $nrc->Cons_mName?> <?php echo $nrc->Cons_faName?></td>
-													<td><?php echo $nrc->Cons_address?></td>
-												</tr>
-											<?php } ?>
+												<?php
+													$i = 1;
+													foreach($noRead as $nr){?>
+													<tr>
+														<td><?php echo 
+															$i;
+															$i++
+														?></td>
+														<td><?php echo $nr['Mtr_id']?></td>
+														<td><?php echo $nr['Cons_name']?></td>
+														<td><?php echo $nr['address']?></td>
+													</tr>
+												<?php }?>
 										</tbody>
 									</table>
 												
@@ -72,10 +64,9 @@
 								<div class="tab-pane fade" id="disconnect" role="tabpanel">
 									<div class="pd-20">
 										
-										<table class="data-table table-bordered stripe hover nowrap" style = "margin-left: -3.5%;">
+										<table class="data-table table-bordered stripe hover nowrap">
 											<thead>
 												<tr>
-													<th class="table-plus datatable-nosort">No.</th>
 													<th>Meter No.</th>
 													<th>Name</th>
 													<th>Address</th>
@@ -86,27 +77,80 @@
 											</thead>
 											<tbody>
 												<?php
-													foreach($noticeOfDisconnection as $nod){?>
+													$i = 1;
+													foreach($noticeOfDisconnection as $nof){ 
+														if ($nof['bill_numOfRead'] == 3) { ?>
 														<tr>
-															<td><?php echo 
-																$i;
-																$i++
-															?></td>
-															<td><?php echo $nod['Mtr_id']?></td>
-															<td><?php echo $nod['Cons_fName']?> <?php echo $nod['Cons_mName']?> <?php echo $nod['Cons_faName']?></td>
-															<td><?php echo $nod['Cons_zone']?> <?php echo $nod['Cons_barangay']?> <?php echo $nod['Cons_province']?></td>
-															<td><?php echo $nod['Read_currBill']?></td>
-															<td><?php echo $nod['Rate_totalUsage']?></td>
+															<td><?php echo $nof['Mtr_id']?></td>
+															<td><?php echo $nof['Cons_name']?></td>
+															<td><?php echo $nof['Cons_address']?></td>
+															<td class = "text-center"><?php echo $nof['bill_meterUsed']?></td>
+                                                			<td class = "text-right">₱<?php echo $nof['bill_currUsage']?></td>
 															<td class = "text-center">
-																<button class = "btn btn-primary btn-sm">
-																	<i class = "fa fa-print"> Print</i>
-																</button>
+																<div class="dropdown">
+																	<a class="btn btn-outline-primary dropdown-toggle btn-sm" href="#" role="button" data-toggle="dropdown">
+																		<i class="fa fa-ellipsis-h"></i>
+																	</a>
+																	<div class="dropdown-menu">
+																		<br />
+																		<button class = "btn btn-primary btn-sm" style = "margin-left: 15%;">
+																			<a href = "<?php echo base_url("admin/notice/get_notPaid/".$nof['Mtr_no']);?>">
+																				<i class = "fa fa-print" style = "color: white"> Print</i>
+																			</a>
+																		</button>
+																		<br />
+																		<a class = "btn btn-danger btn-sm" style = "margin-left: 15%; margin-top: 3%;" type = "button" href="<?php echo base_url('admin/dashboard/disconnect/'.$nof['Mtr_no']); ?>">
+																			<i class = "fa fa-times"> Disconnection</i>
+																		</a>
+																		<br />
+																		<br />
+																	</div> 
+															</div>
 															</td>
 														</tr>
-												<?php }?>
+												<?php } }?>
 											</tbody>
 										</table>
 
+									</div>
+								</div>
+								<div class="tab-pane fade" id="connectdis" role="tabpanel">
+									<div class="pd-20">
+										
+									<table class="data-table table-bordered stripe hover nowrap">
+										<thead>
+											<tr>
+												<th class="table-plus datatable-nosort">No.</th>
+												<th>Meter No.</th>
+												<th>Name</th>
+												<th>Address</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+												$i = 1;
+												foreach($consumerdis as $cd){?>
+													<tr>
+														<td><?php echo 
+																$i;
+																$i++
+															?></td>
+														<td><?php echo $cd->Mtr_id?></td>
+														<td><?php echo $cd->Cons_fName?> <?php echo $cd->Cons_mName?> <?php echo $cd->Cons_faName?></td>
+														<td><?php echo $cd->Cons_zone?> <?php echo $cd->Cons_barangay?> <?php echo $cd->Cons_province?></td>
+														<td class = "text-center">
+															<button class = "btn btn-primary btn-sm" type = "button">
+																<a href = "<?php echo base_url('admin/dashboard/connect/'.$cd->Mtr_no); ?>">
+																	<i class = "fa fa-check" style = "color: white"> Reconnection</i>
+																</a>
+															</button>
+														</td>
+													</tr>
+											<?php }?>
+										</tbody>
+									</table>
+												
 									</div>
 								</div>
 							</div>
@@ -122,4 +166,6 @@
 					</div>
 				</div>
 </div>
+<?php $this->load->view('modal/alert');?>	
+
 

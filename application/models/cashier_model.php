@@ -9,24 +9,61 @@
 
         public function add_transaction($data)
         {
-            $this->db->insert('transaction', $data);
-            return $this->db->insert_id();
+            return $this->db->insert_batch('transaction', $data);
         }
 
-        public function add_trans_det($data)
-        {
-            return $this->db->insert_batch('transaction_details', $data);
-        }
-
-        public function get_trans_det()
+        public function get_trans()
         {
             $this->db->select('*');
-            $this->db->from('transaction,transaction_details,reading');
-            $this->db->where('transaction.Trans_no = Transaction_details.transaction_Trans_no');
-            $this->db->where('reading.Read_no = Transaction_details.reading_Read_no');
+            $this->db->from('transaction,bill,employee');
+            $this->db->where('transaction.Employee_Emp_no = employee.Emp_no');
+            $this->db->where('transaction.bill_bill_no = bill.bill_no');
 
             $query = $this->db->get();
-            return $query->row();
+            return $query->result();
+        }
+
+        public function get_consumerNameR($Cons_name)
+        {
+
+            return $this->db->query("SELECT *
+                FROM consumer,meter
+                WHERE meter.consumer_Cons_no = consumer.Cons_no
+                AND concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) = '{$Cons_name}'")->row_array();
+        }
+
+        public function get_record($Mtr_id, $Bill_no)
+        {
+            $query = $this->db->query("SELECT * FROM bill,reading,meter,consumer
+                WHERE bill.reading_read_no = reading.read_no
+                AND bill.Meter_Mtr_no = meter.Mtr_no
+                AND meter.consumer_Cons_no = consumer.Cons_no
+                AND meter.Mtr_id = $Mtr_id
+                AND bill.bill_no >= $Bill_no");
+
+                return $query->result_array();
+        }
+
+        public function get_records($Mtr_id, $Bill_no)
+        {
+            $query = $this->db->query("SELECT * FROM bill,reading,meter,consumer,cubic
+                WHERE bill.reading_read_no = reading.read_no
+                AND bill.Meter_Mtr_no = meter.Mtr_no
+                AND meter.consumer_Cons_no = consumer.Cons_no
+                AND bill.Cubic_Cubic_no = cubic.Cubic_no
+                AND meter.Mtr_no = $Mtr_id
+                AND bill.bill_no >= $Bill_no");
+
+                return $query->result_array();
+        }
+
+        public function get_Reading($Mtr_id)
+        {
+            $query = $this->db->query("SELECT bill.bill_no FROM bill,meter
+                WHERE bill.Meter_Mtr_no = meter.Mtr_no
+                AND meter.Mtr_id = $Mtr_id");
+
+                return $query->result_array();
         }
 
 
@@ -56,14 +93,50 @@
 
             return $query->row_array();
         }
+        public function ifPaid($Mtr_id, $Bill_no)
+        {
+            $query = $this->db->query("SELECT MIN(bill.bill_no) as bill_no FROM bill
+                                    INNER JOIN meter ON meter.Mtr_no=bill.Meter_Mtr_no
+                                    WHERE meter.Mtr_id = $Mtr_id
+                                    AND bill_no > $Bill_no ");
+            return $query->row()->bill_no;
+        }
+
+        public function ifPaids($Mtr_id, $Bill_no)
+        {
+            $query = $this->db->query("SELECT MIN(bill.bill_no) as bill_no FROM bill
+                                    INNER JOIN meter ON meter.Mtr_no=bill.Meter_Mtr_no
+                                    WHERE meter.Mtr_no = $Mtr_id
+                                    AND bill_no > $Bill_no ");
+            return $query->row()->bill_no;
+        }
+
+        public function ifPaid_check($Mtr_id)
+        {
+            $query = $this->db->query("SELECT MAX(transaction.bill_bill_no) as bill_no FROM transaction
+            INNER JOIN bill ON bill.bill_no=transaction.bill_bill_no
+            INNER JOIN meter ON meter.Mtr_no=bill.Meter_Mtr_no
+            WHERE meter.Mtr_id = $Mtr_id");
+            return $query->row()->bill_no??0;
+        }
+
+        public function ifPaid_checks($Mtr_id)
+        {
+            $query = $this->db->query("SELECT MAX(transaction.bill_bill_no) as bill_no FROM transaction
+            INNER JOIN bill ON bill.bill_no=transaction.bill_bill_no
+            INNER JOIN meter ON meter.Mtr_no=bill.Meter_Mtr_no
+            WHERE meter.Mtr_no = $Mtr_id");
+            return $query->row()->bill_no??0;
+        }
 
         public function get_max($Mtr_id)
         {
-            $query = $this->db->query("SELECT MAX(transaction.Trans_no) AS Trans_no, Trans_amount
-            FROM transaction, meter
-            WHERE transaction.meter_Mtr_no = meter.Mtr_no
-            AND meter.Mtr_id = $Mtr_id
-           ");
+            $query = $this->db->query("SELECT MAX(t.Trans_no) AS Trans_no, t.Trans_amount FROM transaction t
+            JOIN bill b on b.bill_no=t.bill_bill_no
+            JOIN meter m ON m.Mtr_no=b.Meter_Mtr_no
+            WHERE m.Mtr_id = $Mtr_id
+            GROUP BY t.Trans_no 
+            ORDER BY t.Trans_no DESC LIMIT 1");
 
             return $query->row_array();
         }
@@ -102,6 +175,35 @@
             GROUP BY consumer.Cons_no")->result_array(); 
         }
 
+        public function get_consumerName()
+        {
+            $query = $this->db->query("SELECT *,concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) as Cons_name FROM consumer,meter,bill,transaction
+                WHERE meter.consumer_Cons_no = consumer.Cons_no
+                AND bill.Meter_Mtr_no = meter.Mtr_no
+                AND transaction.bill_bill_no = bill.bill_no
+                AND meter.Mtr_status != 1
+                GROUP BY consumer.Cons_no");
+
+            return $query->result();
+
+        }
+
+        public function readNotPaid()
+        {
+            $query = $this->db->query("SELECT m.Mtr_id, concat(c.Cons_fName,' ',c.Cons_mName,' ',c.Cons_faName) as Cons_name,
+                                                concat(c.Cons_zone,' ',c.Cons_barangay,' ',c.Cons_province) as Cons_address,
+                                                SUM(b1.bill_meterUsed) as bill_meterUsed, SUM(b1.bill_currUsage) as bill_currUsage
+                                        FROM bill b1
+                                        JOIN meter m ON m.Mtr_no=b1.Meter_Mtr_no
+                                        JOIN consumer c ON c.Cons_no=m.consumer_Cons_no
+                                        WHERE b1.bill_no > IFNULL((SELECT MAX(b2.bill_no) AS bill_no FROM transaction t
+                                                            JOIN bill b2 ON b2.bill_no=t.bill_bill_no
+                                                            WHERE b2.Meter_Mtr_no = b1.Meter_Mtr_no), 0)
+                                        GROUP BY c.Cons_no");
+            return $query->result_array();
+
+        }
+
         public function consumer()
         {
             $this->db->select("*, concat(Cons_zone,' ',Cons_barangay,' ',Cons_province) as Cons_address, MAX(reading.Read_no) as Read_no,MAX(Read_numOfRead) as Read_numOfRead, SUM(Read_currBill) as Read_prevBill");
@@ -116,19 +218,131 @@
             return $query->result_array();
         }
 
-        public function get_Paid()
+        public function getMeter($Mtr_id)
         {
-            $this->db->select("*");
-            $this->db->from('meter,consumer,reading,cubic,transaction,employee');
-            $this->db->where('transaction.Employee_Emp_no = employee.Emp_no');
-            $this->db->where('meter.Consumer_Cons_no = consumer.Cons_no');
-            $this->db->where('reading.Meter_Mtr_no = meter.Mtr_no');
-            $this->db->where('transaction.meter_Mtr_no = meter.Mtr_no');
-            $this->db->where('cubic.Cubic_no=reading.Cubic_Cubic_no');
-            $this->db->group_by('transaction.Trans_no');
+            $query = $this->db->query("SELECT * FROM meter,consumer 
+                WHERE meter.consumer_Cons_no = consumer.Cons_no
+                AND meter.Mtr_id = $Mtr_id");
+            return $query->row_array();
+        }
 
-            $query = $this->db->get();
+        // public function get_Paid()
+        // {
+        //     $query = $this->db->query("SELECT b1.bill_no, t.Trans_date, m.Mtr_id, concat(c.Cons_fName,' ',c.Cons_mName,' ',c.Cons_faName) as Cons_name, 
+        //                                     concat(e.Emp_fName,' ',e.Emp_mName,' ',e.Emp_faName) as Emp_name, 
+        //                                     (b1.bill_currBill-(SELECT b2.bill_prevBill FROM bill b2
+        //                                                      WHERE b2.bill_no < IFNULL((SELECT MAX(b3.bill_no) AS bill_no FROM transaction t
+        //                                                                                JOIN bill b3 ON b3.bill_no=t.bill_bill_no
+        //                                                                                WHERE b3.Meter_Mtr_no = b2.Meter_Mtr_no), 0) 
+        //                                                      AND b2.bill_numOfRead = 1
+        //                                                      GROUP BY Mtr_id)) as bill_meterUsed, t.Trans_amount 
+        //                                 FROM transaction t
+        //                                 JOIN bill b1 ON b1.bill_no=t.bill_bill_no
+        //                                 JOIN meter m ON m.Mtr_no=b1.Meter_Mtr_no
+        //                                 JOIN consumer c ON c.Cons_no=m.consumer_Cons_no
+        //                                 JOIN employee e ON e.Emp_no=t.Employee_Emp_no
+        //                                 GROUP by t.Trans_no");
+                
+        //     return $query->result_array();
+        // }
+
+        public function get_paid()
+        {
+            $query = $this->db->query("SELECT Trans_date,Mtr_id,concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) as Cons_name,concat(Emp_fName,' ',Emp_mName,' ',Emp_faName) as Emp_name,SUM(bill_meterUsed) AS bill_meterUsed,SUM(bill_currUsage) AS bill_currUsage 
+
+                                        FROM transaction,bill,meter,consumer,employee
+                                        
+                                        WHERE transaction.bill_bill_no = bill.bill_no
+                                        AND bill.Meter_Mtr_no = meter.Mtr_no
+                                        AND meter.consumer_Cons_no = consumer.Cons_no
+                                        AND transaction.Employee_Emp_no = employee.Emp_no
+                                        GROUP BY Trans_date,Mtr_id");
             return $query->result_array();
+        }
+
+        public function get_paids($Cons_name)
+        {
+            $query = $this->db->query("SELECT Trans_date,Mtr_id,concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) as Cons_name,concat(Emp_fName,' ',Emp_mName,' ',Emp_faName) as Emp_name,SUM(bill_meterUsed) AS bill_meterUsed,SUM(bill_currUsage) AS bill_currUsage 
+
+                                        FROM transaction,bill,meter,consumer,employee
+                                        
+                                        WHERE transaction.bill_bill_no = bill.bill_no
+                                        AND bill.Meter_Mtr_no = meter.Mtr_no
+                                        AND meter.consumer_Cons_no = consumer.Cons_no
+                                        AND transaction.Employee_Emp_no = employee.Emp_no
+                                        AND concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) = '{$Cons_name}'
+                                        GROUP BY Trans_date,Mtr_id");
+            return $query->result_array();
+        }
+
+        public function getPaid($Cons_name)
+        {
+            // $this->db->select("trans_date, concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) as Cons_name, concat(Emp_fName,' ',Emp_mName,' ',Emp_faName) as Emp_name, Trans_amount,bill_currBill");
+            // $this->db->from('transaction,bill , meter, employee, consumer');
+            // $this->db->where('transaction.bill_bill_no = bill.bill_no');
+            // $this->db->where('bill.Meter_Mtr_no = meter.Mtr_no');
+            // $this->db->where('transaction.Employee_Emp_no = employee.Emp_no');
+            // $this->db->where('meter.consumer_Cons_no = consumer.cons_no');
+            // $this->db->group_by('transaction.trans_no');
+            // $this->db->where("concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) = '{$Cons_name}'");
+         
+            // $query = $this->db->get();
+            // return $query->result_array();
+            $query = $this->db->query("SELECT b1.bill_no, t.trans_date, m.Mtr_id, concat(c.Cons_fName,' ',c.Cons_mName,' ',c.Cons_faName) as Cons_name, 
+                                        concat(e.Emp_fName,' ',e.Emp_mName,' ',e.Emp_faName) as Emp_name, 
+                                        (b1.bill_currBill-( SELECT b2.bill_prevBill FROM bill b2
+                                                            WHERE b2.bill_no = (b1.bill_no - (b1.bill_numOfRead-1)) 
+                                        )) as bill_meterUsed, t.Trans_amount 
+                                    FROM transaction t
+                                    JOIN bill b1 ON b1.bill_no=t.bill_bill_no
+                                    JOIN meter m ON m.Mtr_no=b1.Meter_Mtr_no
+                                    JOIN consumer c ON c.Cons_no=m.consumer_Cons_no
+                                    JOIN employee e ON e.Emp_no=t.Employee_Emp_no
+                                    WHERE concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) = '{$Cons_name}'
+                                    GROUP by t.Trans_no");
+
+            return $query->result_array();
+        }
+
+        public function getPaidByDate($from, $to)
+        {
+            // $query = $this->db->query("SELECT b1.bill_no, t.trans_date, m.Mtr_id, concat(c.Cons_fName,' ',c.Cons_mName,' ',c.Cons_faName) as Cons_name, 
+            //                                 concat(e.Emp_fName,' ',e.Emp_mName,' ',e.Emp_faName) as Emp_name, concat(Cons_zone,' ',Cons_barangay,' ',Cons_province) as address, 
+            //                                 (b1.bill_currBill-( SELECT b2.bill_prevBill FROM bill b2
+            //                                                     WHERE b2.bill_no = (b1.bill_no - (b1.bill_numOfRead-1)) 
+            //                                 )) as bill_meterUsed, t.Trans_amount 
+            //                             FROM transaction t
+            //                             JOIN bill b1 ON b1.bill_no=t.bill_bill_no
+            //                             JOIN meter m ON m.Mtr_no=b1.Meter_Mtr_no
+            //                             JOIN consumer c ON c.Cons_no=m.consumer_Cons_no
+            //                             JOIN employee e ON e.Emp_no=t.Employee_Emp_no
+            //                             WHERE date(trans_date) >= '{$from}'
+            //                             AND date(trans_date) <= '{$to}'
+            //                             GROUP by t.Trans_no");
+                
+            // return $query->result_array();
+            $query = $this->db->query("SELECT Trans_date,Mtr_id,concat(Cons_fName,' ',Cons_mName,' ',Cons_faName) as Cons_name,concat(Emp_fName,' ',Emp_mName,' ',Emp_faName) as Emp_name,concat(Cons_zone,' ',Cons_barangay,' ',Cons_province) as address,SUM(bill_meterUsed) AS bill_meterUsed,SUM(bill_currUsage) AS bill_currUsage 
+
+                                        FROM transaction,bill,meter,consumer,employee
+                                        
+                                        WHERE transaction.bill_bill_no = bill.bill_no
+                                        AND bill.Meter_Mtr_no = meter.Mtr_no
+                                        AND meter.consumer_Cons_no = consumer.Cons_no
+                                        AND transaction.Employee_Emp_no = employee.Emp_no
+                                        AND date(trans_date) >= '{$from}'
+                                        AND date(trans_date) <= '{$to}'
+                                        GROUP by Trans_date,Mtr_id");
+                
+            return $query->result_array();
+        }
+
+        public function readConsumer($Mtr_id)
+        {
+            $query = $this->db->query("SELECT * FROM consumer 
+                                    LEFT JOIN meter ON meter.consumer_Cons_no=consumer.Cons_no
+                                    WHERE Mtr_id = $Mtr_id
+                                    AND Mtr_status = 0");
+            return $query->row_array();
         }
     }
 ?>

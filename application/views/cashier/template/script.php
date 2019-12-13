@@ -126,3 +126,26 @@
 	})
 
 </script>
+
+<script>
+	$(function() {
+		$('#getMtrNo').on('keypress',function(e) {
+			if(e.which == 13) {
+				$('#enterBtn').click();
+				return false;
+			}
+		});
+	})
+	
+</script>
+
+<script>
+	$('document').ready(function(){
+		<?php if($this->session->flashdata('error')): ?>
+			$('#alert').modal('show');
+			setTimeout(function(){
+				$('#alert').modal('hide');
+			}, 1500);
+		<?php endif; ?>	
+	});
+</script>

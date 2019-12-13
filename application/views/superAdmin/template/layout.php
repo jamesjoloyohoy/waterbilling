@@ -5,6 +5,7 @@
 
   <body>
     <!-- <img src="<?php echo base_url()?>assets/vendors/images/login.jpg" class="bg_img"> -->
+  <?php $this->load->view('superAdmin/template/header'); ?>
 
     <?php 
 

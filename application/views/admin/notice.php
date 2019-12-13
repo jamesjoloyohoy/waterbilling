@@ -32,21 +32,21 @@
                 <div class="invoice-header">
                     <div class="logo text-center">
                         <h6>MANTICAO MUNICIPAL WATERWORKS</h6>
-                        <h5>DISCONNECTION NOTICE</h5>
+                        <h5>NOTICE OF DISCONNECTION</h5>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-md-2 col-form-label">Name:</label>
                     <div class="col-sm-5 col-md-7" style = "margin-top: 1%;">
-                        <strong> Name (Meter No.)</strong>
+                        <strong> <?php echo $consumerInfo['Cons_fName'],' ',$consumerInfo['Cons_mName'],' ',$consumerInfo['Cons_faName']?> (<?php echo $consumerInfo['Mtr_id']?>)</strong>
                     </div>
                 </div>
 
                 <div class="form-group row" style = "margin-top: -2%;">
                     <label class="col-sm-2 col-md-2 col-form-label">Address:</label>
                     <div class="col-sm-5 col-md-7" style = "margin-top: 1%;">
-                        <strong>Address</strong>
+                        <strong><?php echo $consumerInfo['Cons_zone'],' ',$consumerInfo['Cons_barangay'],' ',$consumerInfo['Cons_province']?></strong>
                     </div>
                 </div>
 
@@ -68,24 +68,31 @@
                         <thead>
                             <tr>
                                 <th style = "width: 30%;" class = "text-center">Months Delinquent</th>
-                                <th style = "width: 20%;" class = "text-center">Water Bill</th>
                                 <th style = "width: 30%;" class = "text-center">Per Cubic Meter</th>
+                                <th style = "width: 20%;" class = "text-center">Water Bill</th>
                                 <th style = "width: 20%;" class = "text-center">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php 
+                                $cubic_meter = 0;
+                                $amount = 0;
+                                foreach ($record as $read) { ?>															
                                 <tr>
-                                    <td></td>
-                                    <td class = "text-right"></td>
-                                    <td class = "text-center"></td>
-                                    <td class = "text-right"></td>
+                                    <td class = "text-center"><?php echo date('M',strtotime($read['read_startDate'])).' - '.date('M',strtotime($read['read_endDate']))?></td>
+                                    <td class = "text-right"><?php echo number_format($read['Cubic_meter'], -2)?></td>
+                                    <td class = "text-right"><?php echo number_format($read['bill_meterUsed'], -2)?></td>
+                                    <td class = "text-right">₱<?php echo $read['bill_currUsage']?></td>
 
                                 </tr> 
+                                <?php 
+                                    $cubic_meter += $read['bill_meterUsed']; 
+                                    $amount += $read['bill_currUsage'];
+                                } ?>
                             <tr>
-                                <td></td>
-                                <td class = "text-right"></td>
-                                <td class = "text-center"></td>
-                                <td class = "text-right"></td>
+                                <td colspan = "2" class = "text-right">Total</td>
+                                <td style = "text-align: right"><?= number_format($cubic_meter, -2); ?></td>
+                                <td style = "text-align: right">₱<?= number_format($amount, 2); ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -98,8 +105,8 @@
                     <br />
                     <div class="form-group row">
                         <label class="col-sm-2 col-md-2 col-form-label">Received by:</label>
-                        <div class="col-sm-5 col-md-7">
-                            <input readonly class="form-control" style = "background-color: white; border: 1px solid white; border-bottom: 1px solid black; width: 40%; margin-top: -2%;">
+                        <div class="col-sm-7 col-md-5">
+                            <input readonly value = "<?php echo $consumerInfo['Cons_fName'],' ',$consumerInfo['Cons_mName'],' ',$consumerInfo['Cons_faName']?>" class="form-control" style = "background-color: white; border: 1px solid white; border-bottom: 1px solid black; width: 60%; margin-top: -2%; text-align: center">
                         </div>
                     </div>
 

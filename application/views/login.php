@@ -15,10 +15,10 @@
 			</a>
 		</button>
 
-	<!-- <img src="<?php echo base_url()?>assets/vendors/images/login.jpg" alt="" class="bg_img"> -->
+	<img src="<?php echo base_url()?>assets/vendors/images/8.jpg" alt="" class="bg_img">
 		<div class="pd-10">
 			<div class="login-box bg-white box-shadow pd-30 border-radius-5" style = "margin-top: 7%; box-shadow: 0 0 20px 5px #000;" >
-				<!-- <img src="<?php echo base_url()?>assets/vendors/images/login.jpg" alt="" class="bg_img" style> -->
+				<img src="<?php echo base_url()?>assets/vendors/images/8.jpg" alt="" class="bg_img" style>
 					<h2 class="text-center mb-30" style = "text-shadow: 2px 2px 2px black, 2px 2px 25px blue, 0 0 5px darkblue; color: white; font-family: Times New Roman, Times, serif;font-size: 40px;">Sign In</h2>
 					
 					

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2019 at 05:26 AM
+-- Generation Time: Dec 12, 2019 at 06:01 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -29,21 +29,49 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bill` (
-  `Bill_no` int(11) NOT NULL,
-  `Bill_date` varchar(30) NOT NULL,
-  `Bill_startDate` varchar(30) NOT NULL,
-  `Bill_endDate` varchar(30) NOT NULL,
-  `Bill_dueDate` varchar(30) NOT NULL
+  `bill_no` int(11) NOT NULL,
+  `bill_date` varchar(30) NOT NULL,
+  `bill_prevBill` int(11) NOT NULL,
+  `bill_currBill` int(11) NOT NULL,
+  `bill_meterUsed` int(11) NOT NULL,
+  `bill_currUsage` int(11) NOT NULL,
+  `bill_meterReader` varchar(50) NOT NULL,
+  `bill_numOfRead` varchar(3) NOT NULL,
+  `Meter_Mtr_no` int(11) NOT NULL,
+  `Cubic_Cubic_no` int(11) NOT NULL,
+  `reading_read_no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bill`
 --
 
-INSERT INTO `bill` (`Bill_no`, `Bill_date`, `Bill_startDate`, `Bill_endDate`, `Bill_dueDate`) VALUES
-(1, 'September 07', 'August', 'September', 'Fri Sep 27 2019'),
-(2, 'September 20', 'August', 'September', 'Mon Sep 30 2019'),
-(3, 'September 20', 'August', 'September', 'Thu Oct 10 2019');
+INSERT INTO `bill` (`bill_no`, `bill_date`, `bill_prevBill`, `bill_currBill`, `bill_meterUsed`, `bill_currUsage`, `bill_meterReader`, `bill_numOfRead`, `Meter_Mtr_no`, `Cubic_Cubic_no`, `reading_read_no`) VALUES
+(35, 'Tue Jan 22 2019', 0, 50, 50, 250, 'Jemille Renz N. Bongo', '1', 3, 3, 36),
+(36, 'Tue Jan 22 2019', 0, 85, 85, 425, 'Jemille Renz N. Bongo', '1', 1, 3, 37),
+(37, 'Tue Jan 22 2019', 0, 65, 65, 325, 'Jemille Renz N. Bongo', '1', 2, 3, 38),
+(38, 'Wed Feb 20 2019', 85, 150, 65, 325, 'Jemille Renz N. Bongo', '1', 1, 3, 39),
+(39, 'Wed Feb 20 2019', 65, 120, 55, 275, 'Jemille Renz N. Bongo', '1', 2, 3, 40),
+(40, 'Wed Feb 20 2019', 50, 100, 50, 250, 'Jemille Renz N. Bongo', '1', 3, 3, 41),
+(42, 'Fri Mar 22 2019', 100, 150, 50, 250, 'Jemille Renz N. Bongo', '1', 3, 3, 43),
+(43, 'Fri Mar 22 2019', 150, 210, 60, 300, 'Jemille Renz N. Bongo', '1', 1, 3, 44),
+(44, 'Fri Mar 22 2019', 120, 190, 70, 350, 'Jemille Renz N. Bongo', '1', 2, 3, 45),
+(45, 'Wed Apr 24 2019', 210, 260, 50, 250, 'Jemille Renz N. Bongo', '2', 1, 3, 46),
+(46, 'Wed Apr 24 2019', 190, 250, 60, 300, 'Jemille Renz N. Bongo', '2', 2, 3, 47),
+(47, 'Wed Apr 24 2019', 150, 220, 70, 350, 'Jemille Renz N. Bongo', '2', 3, 3, 48),
+(48, 'Wed May 22 2019', 220, 250, 30, 150, 'Jemille Renz N. Bongo', '1', 3, 3, 49),
+(49, 'Wed May 22 2019', 260, 300, 40, 200, 'Jemille Renz N. Bongo', '1', 1, 3, 50),
+(50, 'Wed May 22 2019', 250, 300, 50, 250, 'Jemille Renz N. Bongo', '1', 2, 3, 51),
+(51, 'Thu Jun 20 2019', 250, 300, 50, 250, 'Jemille Renz N. Bongo', '2', 3, 3, 52),
+(52, 'Thu Jun 20 2019', 300, 350, 50, 250, 'Jemille Renz N. Bongo', '2', 1, 3, 53),
+(53, 'Thu Jun 20 2019', 300, 350, 50, 250, 'Jemille Renz N. Bongo', '2', 2, 3, 54),
+(54, 'Thu Jul 25 2019', 300, 350, 50, 250, 'Jemille Renz N. Bongo', '3', 3, 3, 55),
+(55, 'Thu Jul 25 2019', 350, 400, 50, 250, 'Jemille Renz N. Bongo', '3', 1, 3, 56),
+(56, 'Thu Jul 25 2019', 350, 400, 50, 250, 'Jemille Renz N. Bongo', '3', 2, 3, 57),
+(57, 'Fri Aug 23 2019', 350, 450, 100, 500, 'Jemille Renz N. Bongo', '1', 3, 3, 58),
+(58, 'Fri Sep 20 2019', 450, 550, 100, 1000, 'Jemille Renz N. Bongo', '2', 3, 4, 59),
+(59, 'Thu Oct 24 2019', 550, 700, 150, 1500, 'Jemille Renz N. Bongo', '3', 3, 4, 60),
+(60, 'Wed Nov 20 2019', 400, 450, 50, 500, 'Jemille Renz N. Bongo', '1', 1, 4, 61);
 
 -- --------------------------------------------------------
 
@@ -63,7 +91,6 @@ CREATE TABLE `consumer` (
   `Cons_dApplied` varchar(30) NOT NULL,
   `Cons_status` varchar(15) NOT NULL,
   `Cons_serviceFee` decimal(10,2) NOT NULL,
-  `Cons_otherFee` decimal(10,2) NOT NULL,
   `fee_Fee_no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -71,13 +98,10 @@ CREATE TABLE `consumer` (
 -- Dumping data for table `consumer`
 --
 
-INSERT INTO `consumer` (`Cons_no`, `Cons_faName`, `Cons_fName`, `Cons_mName`, `Cons_zone`, `Cons_barangay`, `Cons_province`, `Cons_spouse`, `Cons_dApplied`, `Cons_status`, `Cons_serviceFee`, `Cons_otherFee`, `fee_Fee_no`) VALUES
-(1, 'Bongo', 'Justine Ryan', 'N.', 'Zone 1', 'Poblacion', 'Manticao, Misamis Oriental', 'None', 'August 31, 2019', 'Residential', '250.00', '0.00', 1),
-(2, 'Lapu-lapu', 'Shinya Kaze', 'J.', 'Zone 5', 'Tuod', 'Manticao, Misamis Oriental', 'None', 'August 31, 2019', 'Residential', '300.00', '0.00', 1),
-(3, 'Bongo', 'Jelian Ruth', 'N.', 'Zone 5', 'Poblacion', 'Manticao, Misamis Oriental', 'None', 'August 31, 2019', 'Residential', '500.00', '0.00', 1),
-(4, 'Orion', 'Dongger', 'O.', 'Zone 10', 'Tuod', 'Manticao, Misamis Oriental', 'None', 'September 05, 2019', 'Residential', '500.00', '0.00', 1),
-(5, 'Leyson', 'Analou', 'C.', 'Zone 5', 'Dimakita', 'Manticao, Misamis Oriental', 'None', 'September 07, 2019', 'Residential', '150.00', '200.00', 1),
-(6, 'Joloyohoy', 'James', 'O.', 'Zone 5', 'Poblacion', 'Manticao, Misamis Oriental', 'None', 'September 08, 2019', 'Residential', '250.00', '250.00', 1);
+INSERT INTO `consumer` (`Cons_no`, `Cons_faName`, `Cons_fName`, `Cons_mName`, `Cons_zone`, `Cons_barangay`, `Cons_province`, `Cons_spouse`, `Cons_dApplied`, `Cons_status`, `Cons_serviceFee`, `fee_Fee_no`) VALUES
+(1, 'Selerio', 'Ryan', 'Q.', 'Zone 5', 'Poblacion', 'Manticao, Misamis Oriental', 'None', 'November 29, 2019', 'Residential', '50.00', 1),
+(2, 'Cagubcub', 'Jake', 'L.', 'Zone 5', 'Tuod', 'Manticao, Misamis Oriental', 'None', 'November 29, 2019', 'Residential', '150.00', 1),
+(3, 'Bongo', 'Justine Ryan', 'N.', 'Zone 9', 'Suok-Suok', 'Manticao, Misamis Oriental', 'None', 'November 29, 2019', 'Residential', '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -96,11 +120,10 @@ CREATE TABLE `cubic` (
 --
 
 INSERT INTO `cubic` (`Cubic_no`, `Cubic_meter`, `Date_updated`) VALUES
-(1, '5.00', 'September 01, 2019'),
-(2, '10.00', 'September 01, 2019'),
-(3, '5.00', 'September 01, 2019'),
-(4, '100.00', 'September 04, 2019'),
-(5, '5.00', 'September 04, 2019');
+(1, '5.00', 'November 29, 2019'),
+(2, '10.00', 'June 20, 2019'),
+(3, '5.00', 'July 23, 2019'),
+(4, '10.00', 'August 23, 2019');
 
 -- --------------------------------------------------------
 
@@ -128,9 +151,10 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`Emp_no`, `Emp_id`, `Emp_fName`, `Emp_mName`, `Emp_faName`, `Emp_address`, `Emp_contact`, `Emp_username`, `Emp_password`, `Emp_status`, `Acc_type`) VALUES
 (1, 101, 'James', 'O.', 'Joloyohoy', 'Manticao, Misamis Oriental', '09061875641', 'koyaks', '1111', 'Active', 'SAdmin'),
-(2, 102, 'Leomar Dave', 'W.', 'Acain', 'Manticao, Misamis Oriental', '09654654621', 'boyto', '1111', 'Active', 'Admin'),
-(3, 103, 'Clysie Cloe', 'W.', 'Acain', 'Manticao, Misamis Oriental', '09653646546', 'clysie', '1111', 'Active', 'Cashier'),
-(4, 104, 'Jemille Renz', 'N.', 'Bongo', 'Manticao, Misamis Oriental', '09336346313', 'pamboy', '1111', 'Active', 'Staff');
+(2, 102, 'Leomar Dave', 'W.', 'Acain', 'Manticao, Misamis Oriental', '09351765984', 'boyto', '1111', 'Active', 'Admin'),
+(3, 103, 'Jemille Renz', 'N.', 'Bongo', 'Manticao, Misamis Oriental', '09176532698', 'pamboy', '1111', 'Active', 'Staff'),
+(4, 104, 'Clysie Cloe', 'W.', 'Acain', 'Manticao, Misamis Oriental', '09652131566', 'clysie', '1111', 'Active', 'Cashier'),
+(5, 105, 'Analou', 'C.', 'Leyson', 'Manticao, Misamis Oriental', '09321326565', 'user5', 'user5', 'Active', 'Cashier');
 
 -- --------------------------------------------------------
 
@@ -151,7 +175,7 @@ CREATE TABLE `fee` (
 --
 
 INSERT INTO `fee` (`Fee_no`, `Connection_fee`, `Reconnection_fee`, `Membership_fee`, `Date_updated`) VALUES
-(1, '250.00', '250.00', '150.00', 'August 31, 2019');
+(1, '250.00', '250.00', '150.00', 'November 29, 2019');
 
 -- --------------------------------------------------------
 
@@ -163,7 +187,7 @@ CREATE TABLE `meter` (
   `Mtr_no` int(11) NOT NULL,
   `Mtr_id` int(11) NOT NULL,
   `Mtr_size` decimal(10,2) NOT NULL,
-  `Mtr_status` varchar(45) NOT NULL,
+  `Mtr_status` int(11) NOT NULL,
   `consumer_Cons_no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -172,34 +196,9 @@ CREATE TABLE `meter` (
 --
 
 INSERT INTO `meter` (`Mtr_no`, `Mtr_id`, `Mtr_size`, `Mtr_status`, `consumer_Cons_no`) VALUES
-(1, 6301, '21.35', 'Connect', 1),
-(2, 9687, '32.32', 'Connect', 2),
-(3, 6354, '32.46', 'Connect', 3),
-(4, 6962, '23.13', 'Disconnect', 4),
-(5, 5632, '23.01', 'Disconnect', 5),
-(6, 3210, '32.01', 'Disconnect', 6);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rate`
---
-
-CREATE TABLE `rate` (
-  `Rate_no` int(11) NOT NULL,
-  `Rate_prevUsage` decimal(10,2) NOT NULL,
-  `Rate_currUsage` decimal(10,2) NOT NULL,
-  `Rate_totalUsage` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `rate`
---
-
-INSERT INTO `rate` (`Rate_no`, `Rate_prevUsage`, `Rate_currUsage`, `Rate_totalUsage`) VALUES
-(1, '0.00', '500.00', '500.00'),
-(2, '0.00', '250.00', '250.00'),
-(3, '0.00', '500.00', '500.00');
+(1, 3698, '20.00', 0, 1),
+(2, 3214, '20.00', 0, 2),
+(3, 6301, '20.00', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -208,27 +207,44 @@ INSERT INTO `rate` (`Rate_no`, `Rate_prevUsage`, `Rate_currUsage`, `Rate_totalUs
 --
 
 CREATE TABLE `reading` (
-  `Read_no` int(11) NOT NULL,
-  `Read_date` varchar(30) NOT NULL,
-  `Read_prevBill` decimal(10,2) NOT NULL,
-  `Read_currBill` decimal(10,2) NOT NULL,
-  `Read_meterUsed` decimal(10,2) NOT NULL,
-  `Read_meterReader` varchar(50) NOT NULL,
-  `Read_numOfRead` varchar(3) NOT NULL,
-  `Meter_Mtr_no` int(11) NOT NULL,
-  `bill_Bill_no` int(11) NOT NULL,
-  `rate_Rate_no` int(11) NOT NULL,
-  `Cubic_Cubic_no` int(11) NOT NULL
+  `read_no` int(11) NOT NULL,
+  `read_date` varchar(30) NOT NULL,
+  `read_startDate` varchar(30) NOT NULL,
+  `read_endDate` varchar(30) NOT NULL,
+  `read_dueDate` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reading`
 --
 
-INSERT INTO `reading` (`Read_no`, `Read_date`, `Read_prevBill`, `Read_currBill`, `Read_meterUsed`, `Read_meterReader`, `Read_numOfRead`, `Meter_Mtr_no`, `bill_Bill_no`, `rate_Rate_no`, `Cubic_Cubic_no`) VALUES
-(1, 'Sat Sep 07 2019', '0.00', '100.00', '100.00', 'Jemelli Renz N. Bongo', '1', 1, 1, 1, 5),
-(2, 'Tue Sep 10 2019', '0.00', '50.00', '50.00', 'Jemelli Renz N. Bongo', '1', 1, 2, 2, 5),
-(3, 'Fri Sep 20 2019', '0.00', '100.00', '100.00', 'Jemelli Renz N. Bongo', '1', 1, 3, 3, 5);
+INSERT INTO `reading` (`read_no`, `read_date`, `read_startDate`, `read_endDate`, `read_dueDate`) VALUES
+(36, 'January 22', 'December', 'January', 'Mon Feb 11 2019'),
+(37, 'January 22', 'December', 'January', 'Mon Feb 11 2019'),
+(38, 'January 22', 'December', 'January', 'Mon Feb 11 2019'),
+(39, 'February 20', 'January', 'February', 'Tue Mar 12 2019'),
+(40, 'February 20', 'January', 'February', 'Tue Mar 12 2019'),
+(41, 'February 20', 'January', 'February', 'Tue Mar 12 2019'),
+(42, 'March 22', 'January', 'March', 'Tue Mar 12 2019'),
+(43, 'March 22', 'February', 'March', 'Thu Apr 11 2019'),
+(44, 'March 22', 'February', 'March', 'Thu Apr 11 2019'),
+(45, 'March 22', 'February', 'March', 'Thu Apr 11 2019'),
+(46, 'April 24', 'March', 'April', 'Tue May 14 2019'),
+(47, 'April 24', 'March', 'April', 'Tue May 14 2019'),
+(48, 'April 24', 'March', 'April', 'Tue May 14 2019'),
+(49, 'May 22', 'April', 'May', 'Tue Jun 11 2019'),
+(50, 'May 22', 'April', 'May', 'Tue Jun 11 2019'),
+(51, 'May 22', 'April', 'May', 'Tue Jun 11 2019'),
+(52, 'June 20', 'May', 'June', 'Wed Jul 10 2019'),
+(53, 'June 20', 'May', 'June', 'Wed Jul 10 2019'),
+(54, 'June 20', 'May', 'June', 'Wed Jul 10 2019'),
+(55, 'July 25', 'June', 'July', 'Wed Aug 14 2019'),
+(56, 'July 25', 'June', 'July', 'Wed Aug 14 2019'),
+(57, 'July 25', 'June', 'July', 'Wed Aug 14 2019'),
+(58, 'August 23', 'July', 'August', 'Thu Sep 12 2019'),
+(59, 'September 20', 'August', 'September', 'Thu Oct 10 2019'),
+(60, 'October 24', 'September', 'October', 'Wed Nov 13 2019'),
+(61, 'November 20', 'October', 'November', 'Tue Dec 10 2019');
 
 -- --------------------------------------------------------
 
@@ -239,40 +255,39 @@ INSERT INTO `reading` (`Read_no`, `Read_date`, `Read_prevBill`, `Read_currBill`,
 CREATE TABLE `transaction` (
   `Trans_no` int(11) NOT NULL,
   `Trans_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Trans_amount` decimal(10,2) NOT NULL,
   `Employee_Emp_no` int(11) NOT NULL,
-  `meter_Mtr_no` int(11) NOT NULL
+  `bill_bill_no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`Trans_no`, `Trans_date`, `Trans_amount`, `Employee_Emp_no`, `meter_Mtr_no`) VALUES
-(1, '2018-12-31 16:00:00', '500.00', 3, 1),
-(2, '2019-01-31 16:00:00', '250.00', 3, 1),
-(3, '2019-03-01 06:41:42', '500.00', 3, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transaction_details`
---
-
-CREATE TABLE `transaction_details` (
-  `Trans_no` int(11) NOT NULL,
-  `reading_Read_no` int(11) NOT NULL,
-  `transaction_Trans_no` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transaction_details`
---
-
-INSERT INTO `transaction_details` (`Trans_no`, `reading_Read_no`, `transaction_Trans_no`) VALUES
-(1, 1, 1),
-(2, 2, 2),
-(3, 3, 3);
+INSERT INTO `transaction` (`Trans_no`, `Trans_date`, `Employee_Emp_no`, `bill_bill_no`) VALUES
+(30, '2019-01-01 03:40:59', 4, 35),
+(31, '2019-02-01 03:41:14', 4, 36),
+(32, '2019-03-01 03:41:36', 4, 37),
+(33, '2019-04-01 03:44:46', 4, 40),
+(34, '2019-05-01 03:44:59', 4, 38),
+(35, '2019-06-01 03:45:11', 4, 39),
+(36, '2019-07-01 03:52:31', 4, 42),
+(37, '2019-08-01 03:52:31', 4, 47),
+(38, '2019-09-01 03:52:48', 4, 43),
+(39, '2019-10-01 03:52:48', 4, 45),
+(40, '2019-11-01 03:53:02', 4, 44),
+(41, '2019-12-01 03:53:02', 4, 46),
+(42, '2019-07-25 06:15:15', 4, 48),
+(43, '2019-07-25 06:15:15', 4, 51),
+(44, '2019-07-25 06:15:15', 4, 54),
+(45, '2019-07-25 06:15:37', 4, 49),
+(46, '2019-07-25 06:15:37', 4, 52),
+(47, '2019-07-25 06:15:37', 4, 55),
+(48, '2019-07-25 06:15:50', 4, 50),
+(49, '2019-07-25 06:15:50', 4, 53),
+(50, '2019-07-25 06:15:50', 4, 56),
+(51, '2019-11-20 06:31:13', 4, 57),
+(52, '2019-11-20 06:31:13', 4, 58),
+(53, '2020-01-01 06:31:13', 4, 59);
 
 --
 -- Indexes for dumped tables
@@ -282,7 +297,10 @@ INSERT INTO `transaction_details` (`Trans_no`, `reading_Read_no`, `transaction_T
 -- Indexes for table `bill`
 --
 ALTER TABLE `bill`
-  ADD PRIMARY KEY (`Bill_no`);
+  ADD PRIMARY KEY (`bill_no`),
+  ADD KEY `fk_Reading_Meter1` (`Meter_Mtr_no`),
+  ADD KEY `fk_reading_Cubic1` (`Cubic_Cubic_no`),
+  ADD KEY `fk_bill_reading1` (`reading_read_no`);
 
 --
 -- Indexes for table `consumer`
@@ -317,20 +335,10 @@ ALTER TABLE `meter`
   ADD KEY `fk_meter_consumer1` (`consumer_Cons_no`);
 
 --
--- Indexes for table `rate`
---
-ALTER TABLE `rate`
-  ADD PRIMARY KEY (`Rate_no`);
-
---
 -- Indexes for table `reading`
 --
 ALTER TABLE `reading`
-  ADD PRIMARY KEY (`Read_no`),
-  ADD KEY `fk_Reading_Meter1` (`Meter_Mtr_no`),
-  ADD KEY `fk_reading_bill1` (`bill_Bill_no`),
-  ADD KEY `fk_reading_rate1` (`rate_Rate_no`),
-  ADD KEY `fk_reading_Cubic1` (`Cubic_Cubic_no`);
+  ADD PRIMARY KEY (`read_no`);
 
 --
 -- Indexes for table `transaction`
@@ -338,15 +346,7 @@ ALTER TABLE `reading`
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`Trans_no`),
   ADD KEY `fk_Transaction_Employee1` (`Employee_Emp_no`),
-  ADD KEY `fk_transaction_meter1` (`meter_Mtr_no`);
-
---
--- Indexes for table `transaction_details`
---
-ALTER TABLE `transaction_details`
-  ADD PRIMARY KEY (`Trans_no`),
-  ADD KEY `fk_transaction_details_reading1` (`reading_Read_no`),
-  ADD KEY `fk_transaction_details_transaction1` (`transaction_Trans_no`);
+  ADD KEY `fk_transaction_bill1` (`bill_bill_no`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -356,22 +356,22 @@ ALTER TABLE `transaction_details`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `Bill_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `bill_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `consumer`
 --
 ALTER TABLE `consumer`
-  MODIFY `Cons_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Cons_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `cubic`
 --
 ALTER TABLE `cubic`
-  MODIFY `Cubic_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Cubic_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `Emp_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Emp_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `fee`
 --
@@ -381,30 +381,28 @@ ALTER TABLE `fee`
 -- AUTO_INCREMENT for table `meter`
 --
 ALTER TABLE `meter`
-  MODIFY `Mtr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `rate`
---
-ALTER TABLE `rate`
-  MODIFY `Rate_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Mtr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `reading`
 --
 ALTER TABLE `reading`
-  MODIFY `Read_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `read_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `Trans_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `transaction_details`
---
-ALTER TABLE `transaction_details`
-  MODIFY `Trans_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Trans_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `bill`
+--
+ALTER TABLE `bill`
+  ADD CONSTRAINT `fk_Reading_Meter1` FOREIGN KEY (`Meter_Mtr_no`) REFERENCES `meter` (`Mtr_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_bill_reading1` FOREIGN KEY (`reading_read_no`) REFERENCES `reading` (`read_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_reading_Cubic1` FOREIGN KEY (`Cubic_Cubic_no`) REFERENCES `cubic` (`Cubic_no`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `consumer`
@@ -419,27 +417,11 @@ ALTER TABLE `meter`
   ADD CONSTRAINT `fk_meter_consumer1` FOREIGN KEY (`consumer_Cons_no`) REFERENCES `consumer` (`Cons_no`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `reading`
---
-ALTER TABLE `reading`
-  ADD CONSTRAINT `fk_Reading_Meter1` FOREIGN KEY (`Meter_Mtr_no`) REFERENCES `meter` (`Mtr_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_reading_Cubic1` FOREIGN KEY (`Cubic_Cubic_no`) REFERENCES `cubic` (`Cubic_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_reading_bill1` FOREIGN KEY (`bill_Bill_no`) REFERENCES `bill` (`Bill_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_reading_rate1` FOREIGN KEY (`rate_Rate_no`) REFERENCES `rate` (`Rate_no`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
   ADD CONSTRAINT `fk_Transaction_Employee1` FOREIGN KEY (`Employee_Emp_no`) REFERENCES `employee` (`Emp_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_transaction_meter1` FOREIGN KEY (`meter_Mtr_no`) REFERENCES `meter` (`Mtr_no`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `transaction_details`
---
-ALTER TABLE `transaction_details`
-  ADD CONSTRAINT `fk_transaction_details_reading1` FOREIGN KEY (`reading_Read_no`) REFERENCES `reading` (`Read_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_transaction_details_transaction1` FOREIGN KEY (`transaction_Trans_no`) REFERENCES `transaction` (`Trans_no`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_transaction_bill1` FOREIGN KEY (`bill_bill_no`) REFERENCES `bill` (`bill_no`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

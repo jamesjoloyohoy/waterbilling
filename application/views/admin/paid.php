@@ -73,25 +73,25 @@
                 <tbody>
                     <?php
                         $i = 1;
-                        $total_amount = 0;
+                        $bill_currUsage = 0;
                         foreach($record as $r){?>
                         <tr>
                             <td><?php echo 
                                 $i;
                                 $i++
                             ?></td>
-                            <td><?php echo date('F d Y',strtotime($r['trans_date']))?></td>
-                            <td><?php echo $r['Emp_name']?></td>
-                            <td><?php echo $r['Trans_amount']/$r['Cubic_meter']?></td>
-                            <td style = "text-align: right">₱<?php echo number_format($r['Trans_amount'], 2)?></td>
+                            <td><?php echo date('F d Y',strtotime($r['Trans_date']))?></td>
+                            <td><?php echo $r['Emp_name']?></td>                                                                                                                                                            
+                            <td class = "text-center"><?php echo $r['bill_meterUsed']?></td>
+                            <td class = "text-right">₱<?php echo number_format($r['bill_currUsage'], 2)?></td>
                         </tr>
-                    <?php $total_amount += $r['Trans_amount']; }?>
+                    <?php $bill_currUsage += $r['bill_currUsage']; }?>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan = "3" style = "text-align: right">Total</td>
                         <td></td>
-                        <td style = "text-align: right;"> ₱<?= number_format($total_amount, 2); ?></td>   
+                        <td style = "text-align: right;"> ₱<?= number_format($bill_currUsage, 2); ?></td>   
                     </tr>
                 </tfoot>
             </table>

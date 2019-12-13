@@ -1,36 +1,11 @@
+<?php $this->load->view('cashier/template/header'); ?>
+
 <div class="container" >
 	<div class="pd-ltr-20 height-100-p xs-pd-20-10">
 		<div class="min-height-200px">
 			<div class="page-header">
-				<div class="row">
-					<div class="col-md-12 col-sm-6">
-						<div class="title">
-							<div class="form-group row">
-							<h4 class="user-name text-blue"><?php echo $this->session->userdata('Emp_fName');?> <?php echo $this->session->userdata('Emp_mName');?> <?php echo $this->session->userdata('Emp_faName');?></h4>
-                                <div class="dropdown" style = "margin-left: 3%;">
-									<a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-										<i class="fa fa-ellipsis-h"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-left">
-										<br/>
-										<div class = "text-center">
-											<button class = "btn btn-dark btn-sm" type = "button" style = "margin-left: 8%; margin-bottom: 3%;">
-												<a href="<?php echo base_url('cashier/dashboard')?>">
-													<i class = "fa fa-dashboard" style = "color: white"> Dashboard</i>
-												</a>
-											</button>
-											<br />
-											<button class= "btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmation-modal" style = "margin-left: -6%;">
-												<i class = "fa fa-sign-out"> Logout</i>
-											</button>
-										</div>
-										<br/>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-                </div>
+                <br />                
+                <br />                
                 <br />                
 				<div class="blog-wrap">
 					<div class="container pd-0">
@@ -57,13 +32,18 @@
                                                                         <div class="tab-pane fade" id="notpaid" role="tabpanel">
                                                                             <div class="pd-20">
 
-                                                                            <button class = "btn btn-dark btn-sm" type = "button">
-                                                                                <a href = "<?php echo base_url('cashier/notPaid');?>">
-                                                                                    <i class = "fa fa-print" style = "color: white"> Print</i>
-                                                                                </a>
-                                                                            </button>
-                                                                            <br />
-                                                                            <br />
+                                                                            <?php if(count($Unpaid) != null)
+                                                                                {  ?>
+                                                                                    <button class = "btn btn-dark btn-sm" type = "button">
+                                                                                        <a href = "<?php echo base_url('cashier/notPaid');?>">
+                                                                                            <i class = "fa fa-print" style = "color: white"> Print</i>
+                                                                                        </a>
+                                                                                    </button>
+                                                                                    <br />
+                                                                                    <br />
+                                                                              <?php } ?>
+                                                                            
+                                                                            
                                                                                 
                                                                                 <table class="data-table table-bordered stripe hover nowrap">
                                                                                     <thead>
@@ -78,6 +58,21 @@
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <?php
+                                                                                            $i = 1;
+                                                                                            foreach($Unpaid as $up){?>
+                                                                                            <tr>
+                                                                                                <td><?php echo 
+                                                                                                    $i;
+                                                                                                    $i++
+                                                                                                ?></td>
+                                                                                                <td><?php echo $up['Mtr_id']?></td>
+                                                                                                <td><?php echo $up['Cons_name']?></td>
+                                                                                                <td><?php echo $up['Cons_address']?></td>                                                                                               
+                                                                                                <td class = "text-center"><?php echo $up['bill_meterUsed']?></td>
+                                                                                                <td class = "text-right">₱<?php echo $up['bill_currUsage']?></td>
+                                                                                            </tr>
+                                                                                        <?php }?>
+                                                                                        <!-- <?php
                                                                                             $i = 1;
                                                                                             foreach ($toCompare as $key) {
                                                                                                 foreach($notPaid as $cons) { 
@@ -111,7 +106,7 @@
                                                                                                     <td><?php echo $nt['Read_currBill']?></td>
                                                                                                     <td><?php echo $nt['Rate_totalUsage']?></td>
                                                                                                 </tr>
-                                                                                            <?php } } ?>
+                                                                                            <?php } } ?> -->
                                                                                     </tbody>
                                                                                 </table>
 
@@ -187,10 +182,10 @@
                                                                                                 ?></td>
                                                                                                 <td><?php echo date('F d Y',strtotime($p['Trans_date']))?></td>
                                                                                                 <td><?php echo $p['Mtr_id']?></td>
-                                                                                                <td><?php echo $p['Cons_fName']?> <?php echo $p['Cons_mName']?> <?php echo $p['Cons_faName']?></td>
-                                                                                                <td><?php echo $p['Emp_fName']?> <?php echo $p['Emp_mName']?> <?php echo $p['Emp_faName']?></td>                                                                                               
-                                                                                                <td><?php echo $p['Trans_amount']/$p['Cubic_meter']?></td>
-                                                                                                <td class = "text-right">₱<?php echo $p['Trans_amount']?></td>
+                                                                                                <td><?php echo $p['Cons_name']?></td>
+                                                                                                <td><?php echo $p['Emp_name']?></td>                                                                                               
+                                                                                                <td class = "text-center"><?php echo $p['bill_meterUsed']?></td>
+                                                                                                <td class = "text-right">₱<?php echo $p['bill_currUsage']?></td>
                                                                                             </tr>
                                                                                         <?php }?>
                                                                                     </tbody>

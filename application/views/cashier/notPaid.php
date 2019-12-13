@@ -50,39 +50,19 @@
             <tbody>
                 <?php
                     $i = 1;
-                    foreach ($toCompare as $key) {
-                        foreach($notPaid as $cons) { 
-                            if ($key['Mtr_id'] === $cons['Mtr_id']) {
-                                if ($key['Read_no'] < $cons['max_Read_no']) { ?>
-                                    <tr>
-                                        <td><?php echo 
-                                            $i;
-                                            $i++
-                                        ?></td>
-                                        <td><?php echo $cons['Mtr_id']?></td>
-                                        <td><?php echo $cons['Cons_fName']?> <?php echo $cons['Cons_mName']?> <?php echo $cons['Cons_faName']?></td>
-                                        <td><?php echo $cons['Cons_address']?></td>
-                                        <td><?php echo $cons['Read_currBill']?></td>
-                                        <td><?php echo $cons['Rate_totalUsage']?></td>
-                                    </tr>
-                                <?php }
-                            }
-                        }
-                    } ?>
-                    <?php foreach ($noTrans as $nt) { 
-                        if ($nt['Trans_no'] === null) { ?>
-                        <tr>
-                            <td><?php echo 
-                                $i;
-                                $i++
-                            ?></td>
-                            <td><?php echo $nt['Mtr_id']?></td>
-                            <td><?php echo $nt['Cons_fName']?> <?php echo $nt['Cons_mName']?> <?php echo $nt['Cons_faName']?></td>
-                            <td><?php echo $nt['Cons_address']?></td>
-                            <td><?php echo $nt['Read_currBill']?></td>
-                            <td><?php echo $nt['Rate_totalUsage']?></td>
-                        </tr>
-                    <?php } } ?>
+                    foreach($Unpaid as $up){?>
+                    <tr>
+                        <td><?php echo 
+                            $i;
+                            $i++
+                        ?></td>
+                        <td><?php echo $up['Mtr_id']?></td>
+                        <td><?php echo $up['Cons_name']?></td>
+                        <td><?php echo $up['Cons_address']?></td>                                                                                               
+                        <td class = "text-center"><?php echo $up['bill_meterUsed']?></td>
+                        <td class = "text-right">₱<?php echo $up['bill_currUsage']?></td>
+                    </tr>
+                <?php }?>
             </tbody>
         </table>
         <br />

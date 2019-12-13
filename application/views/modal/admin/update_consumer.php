@@ -50,7 +50,6 @@
                     <input class="form-control" type="text" id = "dapplied" name = "udapplied" hidden>
                     <input class="form-control" type="text" id = "status" name = "ustatus" hidden>
                     <input class="form-control" type="text" id = "service" name = "uservice" hidden>
-                    <input class="form-control" type="text" id = "other" name = "uother" hidden>
                     <input class="form-control" type="text" id = "fee" name = "ufee" hidden>
 
 

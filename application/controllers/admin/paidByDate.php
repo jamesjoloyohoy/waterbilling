@@ -18,7 +18,9 @@ class paidByDate extends CI_Controller {
 	public function index()
 	{
         $data;
-        $data['reading_paid'] = $this->admin_model->getPaidByDate($_GET['from_date'], $_GET['to_date']);
+		$data['reading_paid'] = $this->admin_model->getPaidByDate($_GET['from_date'], $_GET['to_date']);
+		$data['from_date'] = $_GET['from_date'];
+		$data['to_date'] = $_GET['to_date'];
 
 		$this->load->view('admin/paidByDate', $data);
 	}

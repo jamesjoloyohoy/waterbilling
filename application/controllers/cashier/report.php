@@ -8,7 +8,6 @@ class report extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->helper('form');
-		$this->load->model('admin_model');
 		$this->load->model('cashier_model');
 		if($this->session->userdata('Emp_username')=="")
 		{
@@ -24,11 +23,12 @@ class report extends CI_Controller {
 
 	public function index()
 	{
-		$data['noTrans'] = $this->cashier_model->consumer();
-		$data['toCompare'] = $this->cashier_model->get_latest_transactions();
+		// $data['noTrans'] = $this->cashier_model->consumer();
+		// $data['toCompare'] = $this->cashier_model->get_latest_transactions();
+		// $data['notPaid'] = $this->cashier_model->get_notPaid();
 		$data['Paid'] = $this->cashier_model->get_Paid();
-		$data['notPaid'] = $this->cashier_model->get_notPaid();
-		$data['name'] = $this->admin_model->getName();
+		$data['Unpaid'] = $this->cashier_model->readNotPaid();
+		$data['name'] = $this->cashier_model->get_consumerName();
 
 
 		$this->load_cashier_view('report' , $data);

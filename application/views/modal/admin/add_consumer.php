@@ -64,14 +64,9 @@
 
                             <input class="form-control" type="hidden" value = "1" name = "fee_no">
 
-                                <div class="form-group">
+                            <div class="form-group">
                                 <label>Service Fee</label>
                                 <input class="form-control" type="number" min = "0" required = "" name = "serviceFee" step=".01" autocomplete = "off">
-                            </div>
-
-                                <div class="form-group">
-                                <label>Others</label>
-                                <input class="form-control" type="number" id = "o" min = "0" required = "" name = "otherFee" step=".01" autocomplete = "off">
                             </div>
 
                         </div>

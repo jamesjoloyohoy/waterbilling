@@ -111,6 +111,18 @@
 </script>
 
 <!-- <dashboard> -->
+
+<script>
+	$(function() {
+		$('#addReadingInput').on('keypress',function(e) {
+			if(e.which == 13) {
+				$('#enterClickBtn').click();
+				return false;
+			}
+		});
+	})
+	
+</script>
 <script>
 	function getMonth(month) {
 			console.log(month);
@@ -120,6 +132,7 @@
 				setTimeout(function(){
 					$('#alert').modal('hide');
 				}, 1500);
+				return false;
 			} else {
 				$('#select').click();
 			}
@@ -127,12 +140,12 @@
 </script>
 <script>
 	$('document').ready(function(){
-		if ($this->session->userdata('success') === true) {
+		<?php if($this->session->flashdata('error')): ?>
 			$('#alert').modal('show');
 			setTimeout(function(){
 				$('#alert').modal('hide');
 			}, 1500);
-		}
+		<?php endif; ?>	
 	});
 </script>
 <!-- <dashboard> -->
@@ -165,27 +178,10 @@
 
 </script>
 
-<script>
-	$('#addReading').on('submit', function(e)
+<script >
+	function myprint()
 	{
-		e.preventDefault();
-		$.ajax(
-		{
-			url: '<?php echo base_url('staff/Add_reading/add_reading');?>',
-			data: $(this).serialize(),
-			method: 'post',
-			dataType: 'json',
-			success: function(data)
-			{
-				window.print();
-				alert("Success");
-				window.location.href="dashboard";
-			},
-			error: function()
-			{
-				alert('Error');
-			}
-		})
-	})
-
+		window.print();
+		alert("Success");
+	}
 </script>

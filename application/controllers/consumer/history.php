@@ -25,9 +25,16 @@ class history extends CI_Controller {
 	public function searchConsumer()
 	{
 		$Cons_name = $this->input->post('search_fullname');
-		$data['history'] = $this->consumer_model->get_record($Cons_name);
-		$data['name'] = $this->consumer_model->get_consumerName($Cons_name);
 	
-		$this->load_consumer_view('history', $data);
+		if($this->consumer_model->readConsumer($Cons_name) == null)
+		{
+			$this->session->set_flashdata('error', 'No consumer name found!');
+			redirect('consumer/dashboard');
+		}
+			$data['name'] = $this->consumer_model->readConsumer($Cons_name);
+			$data['balance'] = $this->consumer_model->readBalance($Cons_name);
+			$data['Paid'] = $this->consumer_model->get_Paid($Cons_name);
+			$this->load_consumer_view('history', $data);
+	
 	}
 }

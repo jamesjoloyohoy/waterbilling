@@ -17,9 +17,8 @@ class notPaid extends CI_Controller {
     
 	public function index()
 	{
-        $data['noTrans'] = $this->cashier_model->consumer();
-        $data['toCompare'] = $this->cashier_model->get_latest_transactions();
-        $data['notPaid'] = $this->cashier_model->get_notPaid();
+        
+		$data['Unpaid'] = $this->cashier_model->readNotPaid();
 
 		$this->load->view('cashier/notPaid' , $data);
 	}

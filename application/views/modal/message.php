@@ -6,6 +6,9 @@
                     <img src="<?php echo base_url('assets/vendors/images/success.png')?>" class="mCS_img_loaded"></div>
                     <h3 class="mb-20" id = "alert"></h3>
                 </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </div>
             </div>
         </div>
     </div>

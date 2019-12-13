@@ -29,14 +29,17 @@
 						<div class="tab-content">
 							<div class="tab-pane fade" id="notpaid" role="tabpanel">
 								<div class="pd-20">
-
-                                <button class = "btn btn-dark btn-sm">
-                                    <a href = "<?php echo base_url('admin/notPaid');?>">
-                                        <i class = "fa fa-print" style = "color: white;"> Print</i>
-                                    </a>
-                                </button>
-                                <br />
-                                <br />
+                                
+                                <?php if(count($Unpaid) != null)
+                                {  ?>
+                                    <button class = "btn btn-dark btn-sm">
+                                        <a href = "<?php echo base_url('admin/notPaid');?>">
+                                            <i class = "fa fa-print" style = "color: white;"> Print</i>
+                                        </a>
+                                    </button>
+                                    <br />
+                                    <br />
+                                <?php } ?>
 
                                 <table class="data-table table-bordered stripe hover nowrap" style = "margin-left: -4%;">
                                     <thead>
@@ -52,39 +55,19 @@
                                     <tbody>
                                         <?php
                                             $i = 1;
-                                            foreach ($toCompare as $key) {
-                                                foreach($notPaid as $cons) { 
-                                                    if ($key['Mtr_id'] === $cons['Mtr_id']) {
-                                                        if ($key['Read_no'] < $cons['max_Read_no']) { ?>
-                                                            <tr>
-                                                                <td><?php echo 
-                                                                    $i;
-                                                                    $i++
-                                                                ?></td>
-                                                                <td><?php echo $cons['Mtr_id']?></td>
-                                                                <td><?php echo $cons['Cons_fName']?> <?php echo $cons['Cons_mName']?> <?php echo $cons['Cons_faName']?></td>
-                                                                <td><?php echo $cons['Cons_address']?></td>
-                                                                <td><?php echo $cons['Read_currBill']?></td>
-                                                                <td><?php echo $cons['Rate_totalUsage']?></td>
-                                                            </tr>
-                                                        <?php }
-                                                    }
-                                                }
-                                            } ?>
-                                            <?php foreach ($noTrans as $nt) { 
-                                                if ($nt['Trans_no'] === null) { ?>
-                                                <tr>
-                                                    <td><?php echo 
-                                                        $i;
-                                                        $i++
-                                                    ?></td>
-                                                    <td><?php echo $nt['Mtr_id']?></td>
-                                                    <td><?php echo $nt['Cons_fName']?> <?php echo $nt['Cons_mName']?> <?php echo $nt['Cons_faName']?></td>
-                                                    <td><?php echo $nt['Cons_address']?></td>
-                                                    <td><?php echo $nt['Read_currBill']?></td>
-                                                    <td><?php echo $nt['Rate_totalUsage']?></td>
-                                                </tr>
-                                            <?php } } ?>
+                                            foreach($Unpaid as $up){?>
+                                            <tr>
+                                                <td><?php echo 
+                                                    $i;
+                                                    $i++
+                                                ?></td>
+                                                <td><?php echo $up['Mtr_id']?></td>
+                                                <td><?php echo $up['Cons_name']?></td>
+                                                <td><?php echo $up['Cons_address']?></td>                                                                                               
+                                                <td class = "text-center"><?php echo $up['bill_meterUsed']?></td>
+                                                <td class = "text-right">₱<?php echo number_format($up['bill_currUsage'], 2)?></td>
+                                            </tr>
+                                        <?php }?>
                                     </tbody>
                                 </table>
 
@@ -158,10 +141,10 @@
                                                 ?></td>
                                                 <td><?php echo date('F d Y',strtotime($p['Trans_date']))?></td>
                                                 <td><?php echo $p['Mtr_id']?></td>
-                                                <td><?php echo $p['Cons_fName']?> <?php echo $p['Cons_mName']?> <?php echo $p['Cons_faName']?></td>
-                                                <td><?php echo $p['Emp_fName']?> <?php echo $p['Emp_mName']?> <?php echo $p['Emp_faName']?></td>
-                                                <td><?php echo $p['Trans_amount']/$p['Cubic_meter']?></td>
-                                                <td class = "text-right">₱<?php echo $p['Trans_amount']?></td>
+                                                <td><?php echo $p['Cons_name']?></td>
+                                                <td><?php echo $p['Emp_name']?></td>                                                                                               
+                                                <td class = "text-center"><?php echo $p['bill_meterUsed']?></td>
+                                                <td class = "text-right">₱<?php echo number_format($p['bill_currUsage'], 2)?></td>
                                             </tr>
                                         <?php }?>
                                     </tbody>

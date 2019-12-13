@@ -58,7 +58,6 @@ class consumer extends CI_Controller {
 			'Cons_dApplied'				=>	$this->input->post('dapplied'),
 			'Cons_status'				=>	$this->input->post('status'),
 			'Cons_serviceFee'			=>	$this->input->post('serviceFee'),
-			'Cons_otherFee'				=>	$this->input->post('otherFee'),
 			'fee_Fee_no'				=>	$this->input->post('fee_no')
 		);
 
@@ -90,7 +89,6 @@ class consumer extends CI_Controller {
 			'Cons_dApplied'				=>	$this->input->post('udapplied'),
 			'Cons_status'				=>	$this->input->post('ustatus'),
 			'Cons_serviceFee'			=>	$this->input->post('uservice'),
-			'Cons_otherFee'				=>	$this->input->post('uother'),
 			'fee_Fee_no'				=>	$this->input->post('ufee')
 		);
 

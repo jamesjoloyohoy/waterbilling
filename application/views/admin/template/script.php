@@ -120,8 +120,19 @@ Highcharts.chart('monthly', {
 		});
 </script>
 
+
 <script>
-	function update_consumer(no, fname, mname, faname, zone, barangay, spouse, dapplied, status, service, other, fee)
+	$('document').ready(function(){
+		<?php if($this->session->flashdata('error')): ?>
+			$('#alert').modal('show');
+			setTimeout(function(){
+				$('#alert').modal('hide');
+			}, 1500);
+		<?php endif; ?>	
+	});
+</script>
+<script>
+	function update_consumer(no, fname, mname, faname, zone, barangay, spouse, dapplied, status, service, fee)
 	{
 		$("#no").val(no);
 		$("#fname").val(fname);
@@ -133,7 +144,6 @@ Highcharts.chart('monthly', {
 		$("#dapplied").val(dapplied);
 		$("#status").val(status);
 		$("#service").val(service);
-		$("#other").val(other);
 		$("#fee").val(fee);
 		$("#update_consumer").modal('show');
 	}
@@ -251,9 +261,6 @@ Highcharts.chart('monthly', {
 				if ($mtr_id == <?php echo $met['Mtr_id']; ?>){
 					$('#alert').text("Meter no. is already excess!");
 					$('#message').modal('show');
-					setTimeout(function(){
-						$('#message').modal('hide');
-					}, 1500);
 					$('#climit').val("");
 				}
 			<?php } ?>

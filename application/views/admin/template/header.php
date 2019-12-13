@@ -1,6 +1,6 @@
 	<div class="pre-loader"></div>
 	<div class="header clearfix">
-		<div class="header-right">
+		<div class="header-right" style = "background-color: #00ccff">
 			<div class="brand-logo">
 				<a href="<?php echo base_url('admin/dashboard')?>">
 					<img src="http://localhost/WaterBilling/assets/vendors/images/mww.png" alt="" class="bg_img" style="display: none; width: 100%">

@@ -50,20 +50,23 @@
 																			<div class="invoice-desc-footer">
 																				<div class="invoice-desc-body">
 																					<ul>
-																						<li class="clearfix" style = "border: 1px solid black">
+																						<!-- <li class="clearfix" style = "border: 1px solid black">
 																							<div class="invoice-sub" >
 																								<h6>Previous Bill: </h6>
-																							</div>
+																							</div> -->
 																							<div class="invoice-subtotal">
-																								<h6><?php echo $max['Trans_amount']??0?></h6>
-																								<?php foreach ($reading as $read) { 
-																									$cubic_meter = $read['Read_prevBill'] + $read['Read_currBill'];
-																									$amount += $read['Rate_totalUsage'];
+																								<!-- <h6><?php echo $max['Trans_amount']??0?></h6> -->
+																								<?php foreach ($record as $r) { 
+																									$cubic_meter += $r['bill_meterUsed'];
+																									$amount += $r['bill_currUsage'];
 																								?>
-																									<input value = "<?php echo $read['Read_no']?>" name = "read_no[]" type = "text" hidden>
+																								<?php } ?>
+																								
+																								<?php foreach ($record as $r) { ?>
+																									<input value = "<?php echo $r['bill_no']; ?>" type = "hidden" name = "bill_no[]">
 																								<?php } ?>
 																							</div>
-																						</li>
+																						<!-- </li> -->
 																					</ul>
 																				</div>
 																			</div>
@@ -87,18 +90,18 @@
 																					</div>
 																						<li class="clearfix" style = "border: 1px solid black">
 																							<div class="invoice-sub">
-																								<?php foreach ($reading as $read) { ?>
-																									<h6><?php echo date('M',strtotime($read['Bill_startDate'])).' - '.date('M',strtotime($read['Bill_endDate']))?></h6>
+																								<?php foreach ($record as $r) { ?>
+																									<h6><?php echo date('M',strtotime($r['read_startDate'])).' - '.date('M',strtotime($r['read_endDate']))?></h6>
 																								<?php } ?>
 																							</div>
-																							<div class="invoice-rate">
-																								<?php foreach ($reading as $read) { ?>
-																									<h6><?php echo $read['Read_currBill']?></h6>
+																							<div class="invoice-rate" style = "text-align: right">
+																								<?php foreach ($record as $r) { ?>
+																									<h6><?php echo $r['bill_meterUsed']?></h6>
 																								<?php } ?>
 																							</div>
-																							<div class="invoice-subtotal">
-																								<?php foreach ($reading as $read) { ?>
-																									<h6><?php echo $read['Rate_totalUsage']?></h6>
+																							<div class="invoice-subtotal" style = "text-align: right">
+																								<?php foreach ($record as $r) { ?>
+																									<h6><?php echo $r['bill_currUsage']; ?></h6>
 																								<?php } ?>
 																							</div>
 																						</li>
@@ -118,8 +121,7 @@
 																						</div>
 																						<div class="invoice-subtotal" style = "width: 40%;">
 																							<h6 class = "text-center" style = "margin-top: 16%;">Meter #</h6>
-																							<input value = "<?php echo $readings['Mtr_id'] ?>" style = "border: 1px solid white; text-align: center; width: 100%;" readonly = "">
-																							<input value = "<?php echo $readings['Mtr_no'] ?>" name = "mtr_no" type = "hidden">
+																							<input value = "<?php echo $consumerInfo['Mtr_id']?>" style = "border: 1px solid white; text-align: center; width: 100%;" readonly = "">
 																						</div>
 																					</li>
 																				</ul>
@@ -138,10 +140,10 @@
 																							<div class="invoice-sub">
 																								<h6>Total</h6>
 																							</div>
-																							<div class="invoice-rate">
+																							<div class="invoice-rate" style = "text-align: right">
 																								<h6><?php echo $cubic_meter; ?></h6>
 																							</div>
-																							<div class="invoice-subtotal">
+																							<div class="invoice-subtotal" style = "text-align: right">
 																								<input readonly = "" id = "total" value = "<?php echo $amount?>" style = "width: 150%; border: 1px solid white">
 																							</div>
 																						</li>
@@ -180,8 +182,8 @@
 																		</div>
 																	</td>
 																	<td>
-																		<h5><strong><?php echo $readings['Cons_fName'].' '.$readings['Cons_mName'].' '.$readings['Cons_faName']?></strong></h5>
-																		<h6 style = "font-size: 12px;"><strong><?php echo $readings['Cons_zone'].' '.$readings['Cons_barangay'].' '.$readings['Cons_province']?></strong></h6>
+																		<h5><strong><?php echo $consumerInfo['Cons_fName'].' '.$consumerInfo['Cons_mName'].' '.$consumerInfo['Cons_faName']?></strong></h5>
+																		<h6 style = "font-size: 12px;"><strong><?php echo $consumerInfo['Cons_zone'].' '.$consumerInfo['Cons_barangay'].' '.$consumerInfo['Cons_province']?></strong></h6>
 																	</td>
 																</tr>
 
